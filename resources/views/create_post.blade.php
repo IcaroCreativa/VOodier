@@ -14,10 +14,15 @@
 
 <x-layouts.app title="create ad">
 
-  
-  <x-create_ad_title>
-  </x-create_ad_title>
 
+  <x-slot name="hidden">
+    hidden
+    </x-slot>
+
+    <x-slot name="enter_ad">
+       <x-create_ad_title>
+       </x-create_ad_title>   
+   </x-slot>
 
 </x-layouts.>  
 

@@ -8,6 +8,7 @@ post
   <h1>Page Post</h1>  
 @endsection --}}
 
+{{-- "ICI ON FIT LE DISPLAY D'UN SEUL ANNONCE" --}}
 
 <x-layouts.app title=ad>
 

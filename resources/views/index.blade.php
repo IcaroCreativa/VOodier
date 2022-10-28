@@ -9,14 +9,16 @@ inicio
   <h1>Page Inicio</h1>  
 @endsection --}}
 
-<x-layouts.app title=inicio>
+<x-layouts.app title="">
 
-  <h1>Paginita inicio</h1>
 
-  <x-slot name="contenido">
+  {{-- <x-slot name="contenido">
       <p class="bg-red-400">Contenido de la pagina de inicio</p>
       <a href="{{route('ad')}}" class="underline text-blue-600 font-medium">Voir une annonce</a>
-  </x-slot>
+  </x-slot> --}}
     
+
+
+ 
   
 </x-layouts.app>

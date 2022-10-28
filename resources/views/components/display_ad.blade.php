@@ -1,6 +1,6 @@
 
 
-<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
+<div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8 ">
   <div class=" mx-auto max-w-lg  ">
     <section class="shadow-2xl ">
       <img alt="ad photo"src="camera_plus.png" class="ml-28  md:hidden aspect-square rounded-xl object-cover"/>

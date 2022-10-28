@@ -1,6 +1,6 @@
 
   
-  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
+  <div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8 ">
     <div class=" mx-auto max-w-lg  ">
  
       <form action="" class=" w/2/6 px-4 py-16 sm:px-6 lg:px-8 mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl rounded-t-lg" >
