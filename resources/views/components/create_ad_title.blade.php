@@ -1,5 +1,7 @@
 
   
+
+
   <div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8 ">
     <div class=" mx-auto max-w-lg  ">
  
@@ -40,8 +42,9 @@
             <select name="category" id="category" class="md:w-60 w-40 pl-3 sm:text-sm md:text-xl rounded-md border-gray-500 border " >
                 <option value="">Category</option>
                 {{-- @foreach($categories as $category)
-                <option value="">{{$category ?? "no database"}}</option>
-                @endforeach    --}}
+                
+                <option value="">{{$category->id ?? "----"}}</option>
+                @endforeach     --}}
               </select>
             </div>
               <div class="flex sm:mx-5 space-x-2 mx-2 ">

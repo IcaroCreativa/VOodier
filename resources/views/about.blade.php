@@ -7,9 +7,7 @@
         </x-body_about>   
     </x-slot>
     
-    <x-slot name="hidden">
-        hidden
-    </x-slot>
+   
    
     
 </x-layouts.app>

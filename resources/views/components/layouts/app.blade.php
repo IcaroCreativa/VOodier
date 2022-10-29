@@ -18,8 +18,13 @@
         <x-navigation></x-navigation>
         {{$about ?? ''}}
         {{$enter_ad ?? ''}}
+        {{$contact ?? ''}}
+        {{$login ?? ''}}
+      
+        
+       
         <section>
-            <div class="mx-auto max-w-screen-xl px-4 py-6 sm:px-4 lg:px-4 {{$hidden ?? ''}}">
+            <div class="mx-auto max-w-screen-xl px-4  py-6 sm:px-4 lg:px-4 {{request()->routeIs('home') ?'' :'hidden'}}">
               <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
                 <div class="lg:sticky lg:top-4">
                   <details open class="overflow-hidden rounded border border-gray-200">
@@ -49,17 +54,20 @@
                         <legend
                           class="block w-full bg-gray-50 px-5 py-3 font-medium  text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
                         >
-                          Category
+                        
                         </legend>
           
                         <div class="space-y-2 px-5 py-6">
                           <div class="flex items-center">
-                            <select name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
-                                <option value="">Category</option>
-                                {{-- @foreach($categories as $category)
-                                <option value="">{{$category ?? "no database"}}</option>
-                                @endforeach    --}}
-                              </select>
+                        
+                     <select name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
+                    
+                        <option value="">{{$e ?? ''}}</option>
+                     
+                        </select>  
+
+                             
+                            
                           </div>
           
                          
@@ -238,9 +246,9 @@
                 </div>
                 <div class="lg:col-span-3">
         
-                   <div class="">
+                   <div class="{{request()->routeIs('home') ?'' :'hidden'}}">
               
-                    {{$slot}}
+                    {{$slot ?? ''}}
                    
                   </div>
                   

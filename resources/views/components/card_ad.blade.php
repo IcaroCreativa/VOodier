@@ -10,7 +10,7 @@
  <div class="bg-zinc-400">6</div>
 </div> -->
 
-{{$ads=[
+{{-- {{$ads=[
   ['title'=>"Portable Hp 225",
    'created_at'=>'09th Oct 2022'
    'category'=>'Multimedia',
@@ -75,10 +75,10 @@
 
   ],
  
-  ]}}
+  ]}} --}}
 
  <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
-  @foreach($ads as $as)
+  @foreach($ads as $ad)
   
   <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
     <div class="">
@@ -92,7 +92,8 @@
           
             <div class="bg-white p-4 sm:p-6">
               <time datetime="2022-10-10" class="block  text-xs text-gray-500">
-                {{$ad['created_at']}}
+                {{-- {{$ad['created_at']}} --}}
+                {{$ad->creates_at}}
               </time>
         
               <p class="mb-2 mt-2 text-right text-gray-500">Category</p>
@@ -101,22 +102,25 @@
            <div class="grid grid-cols-2 grid-rows-1">
             <div class="grid">
                 <h3  class="mt-0.5 text-lg font-medium  text-gray-900">
-                  {{$ad['title']}}
+                   {{-- {{$ad->creates_at}} --}}
+                   {{$ad->title}}
                 </h3>
             </div>
             <div class="grid justify-end">
                 <h3 class="mt-0.5 text-lg text-gray-900">
-                  {{$ad['price']}}
+                  {{-- {{$ad['price']}} --}}
+                  {{$ad->price}}
                 </h3>
             </div>
             </div>
               <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3 text-justify">
-                {{$ad['description']}}
+                {{-- {{$ad['description']}} --}}
+                {{$ad->description}}
               </p>
               
               <div clas="grid">
               <p class="mt-2 inline-block font-medium">Location</p>
-              <p class="mt-2 bg-gray-50 p-2 text-right w-full"> {{$ad['zip']}}  {{$ad['location']}}</p>
+              <p class="mt-2 bg-gray-50 p-2 text-right w-full">{{$ad['zip']}} </p> {{-- {{$ad['zip']}}  {{$ad['location']}} --}}
               </div>
             
             </div>
@@ -128,5 +132,3 @@
  
 
 
-</body>
-</html>

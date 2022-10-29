@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\DB;
@@ -20,8 +21,8 @@ class PostController extends Controller
     {
         
           $posts=Post::get();
-      
-          return view('post',['bye'=>"Bye GUYS","posts"=>$posts ]);
+          $categories=Category::get();
+          return view('index',["ads"=>$posts ,'categories'=>$categories]);
         }
     
       

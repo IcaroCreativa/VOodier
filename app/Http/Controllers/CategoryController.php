@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -18,9 +19,12 @@ class CategoryController extends Controller
     {
         
           $categories=Category::get();
-          return view('create_post',["categories"=>$categories ]);
-          
+          return view('index',["categories"=>$categories]);
+         
+ 
         }
+
+      
 
  
 }
