@@ -6,9 +6,15 @@
   <x-slot name="meta-Description">We are Epitech's student</x-slot>
  <h1 class="bg-blue-700 text-white">PAGINA DE CREATE POST</h1>
   <x-slot name="about">
-   
-  
-
+  <p class="hidden"> 
+  {{$file_no_error_css=""}}
+  {{$file_error_css="hidden"}}
+  <p> 
+    
+    @error('img1')
+    {{$file_error_css=""}}
+    {{$file_no_error_css="hidden"}}
+    @enderror
 
   <div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8">
     <div class=" mx-auto max-w-lg  ">
@@ -35,10 +41,14 @@
               type="title"
               name="title"
               id="title"
-              required
-              class="w-full    rounded-lg border-gray-500 border p-1 pr-8 pl-3 md:text-base shadow-sm"
+              value="{{old('title')}}"
+              class="w-full rounded-lg border-gray-500 border p-1 pr-8 pl-3 md:text-base shadow-sm"
               placeholder="Enter title"
             />
+            
+            @error('title')
+            <br> <small class="text-red-600">{{$message}}</small>
+            @enderror
 
           </div>
         </div>
@@ -79,8 +89,11 @@
             </div>
             <div class="py-2 px-4 bg-white rounded-b-lg dark:bg-gray-800">
                 <label for="editor" class="sr-only">Publish add</label>
-                <textarea id="editor" rows="8" name=description maxlength="3000" value="" class="block  h-24 px-0 w-full text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write your description..." required></textarea>
+                <textarea id="editor" rows="8" name=description maxlength="3000" value="" class="block  h-24 px-0 w-full text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write your description..." >{{old('description')}}</textarea>
             </div>
+            @error('description')
+            <br> <small class="text-red-600 pl-4">{{$message}}</small>
+            @enderror
         </div>
       {{-- -----------End text-area---------- --}}
       
@@ -91,18 +104,19 @@
       
     <div class="image1  ">
       <div class="1 hidden  h-6 relative text-transparent">
-          <input type="file"  id="imgInp" name="img1" accept="image/png, image/jpeg"/>
+          <input type="file"  id="imgInp" name="img1" accept="image/png, image/jpeg" value="{{old('image1')}}"/>
       </div>
       <div class="2 mt-2 h-20 w-20 hover:h-24 hover:w-24 " >
           <label for="imgInp">
-           <img id="image1" src="{{URL::asset('/images/camera.png')}}" alt="" class="rounded-md shadow-sm" className="h-20 w-20 "/>
+           <img id="image1" src="{{URL::asset('/images/camera.png')}}" alt="image-require" " class="{{$file_no_error_css}} rounded-md shadow-sm" className="h-20 w-20 "/>
+            <img id="image1" src="{{URL::asset('/images/camera_plus.png')}}" alt="image-require" class= "{{$file_error_css}} rounded-md shadow-sm " className="h-20 w-20 ">
           </label>
       </div>
     </div>
 
     <div class="image2">
       <div class="1 hidden  h-6 relative text-transparent">
-        <input type="file"  id="imgInp2" name="img2" accept="image/png, image/jpeg"/>
+        <input type="file" value="{{old('img2')}}"  id="imgInp2" name="img2" accept="image/png, image/jpeg"/>
       </div>
       <div class="2 mt-2 h-20 w-20 hover:h-24 hover:w-24" >
         <label for="imgInp2">
@@ -116,7 +130,7 @@
       
   <div class="image3">
     <div class="1 hidden  h-6 relative text-transparent">
-        <input type="file"  id="imgInp3" name="img3" accept="image/png, image/jpeg"/>
+        <input type="file"  id="imgInp3" name="img3" accept="image/png, image/jpeg" value="{{old('image3')}}" />
     </div>
     <div class="2 mt-2 h-20 w-20 hover:h-24 hover:w-24" >
         <label for="imgInp3">
@@ -127,7 +141,7 @@
 
   <div class="image4">
     <div class="1 hidden  h-6 relative text-transparent">
-      <input type="file"  id="imgInp4" name="img4" accept="image/png, image/jpeg"/>
+      <input type="file"  id="imgInp4" name="img4" accept="image/png, image/jpeg" value="{{old('image4')}}"/>
     </div>
     <div class="2 mt-2 h-20 w-20 hover:h-24 hover:w-24" >
       <label for="imgInp4">
@@ -141,7 +155,7 @@
       
   <div class="image5">
     <div class="1 hidden  h-6 relative text-transparent">
-        <input type="file"  id="imgInp5" name="img5" accept="image/png, image/jpeg"/>
+        <input type="file"  id="imgInp5" name="img5" accept="image/png, image/jpeg" value="{{old('image5')}}"/>
     </div>
     <div class="2 mt-2 h-28 w-28 hover:h-36 hover:w-36" >
         <label for="imgInp5">
@@ -149,33 +163,28 @@
         </label>
     </div>
   </div>
-    
+  
 </div>
+@error('img1')
+  <br> <small class="text-red-600 text-left ">{{$message}}</small>
+  {{$file_error_css=""}}
+@enderror
+
 </div>
+
+
 
   </div>
-
- 
-
-    
-    
-
-      
-      
-      
-      
-      
-
-      
-     
-      
+  
        {{-- ----PRICE----- --}}
 
       <div class="grid grid-cols-2  mt-4 ">
         <div class="grid w-40 md:w-60">
         <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Price €</label>
-        <input type="number" id="price" name=price value="" class="block p-2 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-         
+        <input type="number" id="price" name=price value="{{old('price')}}" min=0 class="block p-2 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        @error('price')
+         <small class="text-red-600 ">{{$message}}</small>
+        @enderror
        </div> 
         <div class="md:flex  md:mx-6 md:mt-8 md:space-x-1 ml-10">  
           <div class="flex items-center">
@@ -197,8 +206,10 @@
       <div class="grid grid-cols-2  mt-4 ">
         <div class="grid w-40 md:w-60">
         <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" >Location</label>
-        <input type="number" id="location" name="location" value="" placeholder="Enter Zip.." class="block p-2 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500" >
-         
+        <input type="number" id="location" name="location" min=0 max=99999 value="{{old('location')}}"placeholder="Enter Zip.." class="block p-2 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500" >
+        @error('location')
+       <small class="text-red-600 ">{{$message}}</small>
+        @enderror
        </div> 
       </div>
       {{-- ------END PRICE------ --}}
@@ -227,7 +238,7 @@
   
   
   <script>
-
+ // Script js permettant d'afficher les miniatures des images sans devoir faire un refresh de la page.
 imgInp.onchange = evt => {
   const [file] = imgInp.files
  
@@ -242,6 +253,30 @@ imgInp2.onchange = evt => {
     image2.src = URL.createObjectURL(file2)
   }
 }
+
+imgInp3.onchange = evt => {
+ const[file3]=imgInp3.files
+ if (file3) {
+    image3.src = URL.createObjectURL(file3)
+  }
+}
+
+imgInp4.onchange = evt => {
+ const[file4]=imgInp4.files
+ if (file4) {
+    image4.src = URL.createObjectURL(file4)
+  }
+}
+imgInp5.onchange = evt => {
+ const[file5]=imgInp5.files
+ if (file5) {
+    image5.src = URL.createObjectURL(file5)
+  }
+}
+
+
+
+
 $('#file-select-button').click(function(){
     $('.upload input').click();
 });
