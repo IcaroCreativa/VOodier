@@ -20,8 +20,9 @@
         {{$enter_ad ?? ''}}
         {{$contact ?? ''}}
         {{$login ?? ''}}
+        {{$add ?? ''}}
       
-        
+     
        
         <section>
             <div class="mx-auto max-w-screen-xl px-4  py-6 sm:px-4 lg:px-4 {{request()->routeIs('home') ?'' :'hidden'}}">
@@ -61,9 +62,9 @@
                           <div class="flex items-center">
                         
                      <select name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
-                    
-                        <option value="">{{$e ?? ''}}</option>
-                     
+                    @foreach($categories as $category)
+                        <option value="">{{$category->category ?? ''}}</option>
+                     @endforeach
                         </select>  
 
                              

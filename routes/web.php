@@ -6,22 +6,18 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 
-
+Route::get('index',[PostController::class,'index'])->name('home');
 
 Route::view('about','about')->name('about');
 Route::view('register','register')->name('register');
-Route::view('ad','ad')->name('ad');
+Route::view('create_post','create_post')->name('create_post');
+Route::view('contact','contact')->name('contact');
+Route::view('login','login')->name('login');
 
-Route::get('login',function () {
-    return view('login');
-    })->name('login');
-Route::post('login',[LoginController::class,'send'])->name('login');
+Route::get('/{ad}',[PostController::class,'show']);
 
-Route::get('contact',function () {
-    return view('contact');
-    })->name('contact');
-    
-Route::post('contact',[ContactController::class,'send'])->name('contact');
-Route::get('index',[PostController::class,'index'])->name('home');
-Route::get('create_post',[CategoryController::class,'index'])->name('create_post');
+Route::post('login',[LoginController::class,'index'])->name('login_auth');    
+Route::post('contact',[ContactController::class,'index'])->name('contact');
+
+Route::post('/ads', [PostController::class, 'store'])->name('registro');
 

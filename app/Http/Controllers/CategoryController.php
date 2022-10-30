@@ -18,8 +18,8 @@ class CategoryController extends Controller
     public function index()
     {
         
-          $categories=Category::get();
-          return view('index',["categories"=>$categories]);
+       
+          return "JE SUIS LE CONTROLLER CATEGORY";
          
  
         }

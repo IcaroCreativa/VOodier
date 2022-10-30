@@ -115,7 +115,7 @@
             </div>
               <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3 text-justify">
                 {{-- {{$ad['description']}} --}}
-                {{$ad->description}}
+                 {{$ad->description}} 
               </p>
               
               <div clas="grid">

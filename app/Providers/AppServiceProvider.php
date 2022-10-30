@@ -2,8 +2,12 @@
 
 namespace App\Providers;
  // Inclure la facade "Schema"
-use Illuminate\Support\Facades\Schema;
 
+use App\Models\Category;
+
+
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +33,8 @@ class AppServiceProvider extends ServiceProvider
 public function boot()
 {
     Schema::defaultStringLength(191);
+    
+    View::share('categories',Category::get());
+
 }
 }

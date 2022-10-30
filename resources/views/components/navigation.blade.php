@@ -5,9 +5,9 @@
     <div
       class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 "
     >
-    <img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="Voodies Logo" class="w-10 shadow-lg ">
+    <a href="{{route('home')}}"><img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="Voodies Logo" class="w-10 shadow-lg "></a>
       <div class="flex w-0 flex-1 lg:hidden ml-4 md:hidden">
-        <button class=" rounded-full bg-gray-100  text-gray-600" type="button">
+        <button href="{{route('login')}}" class=" rounded-full bg-gray-100  text-gray-600" type="button">
           <span class="sr-only">Account</span>
         
           <svg class="h-8 w-8 bg-gray-100 p-1 -mt-1 rounded-full stroke-blue-700 hover:stroke-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
@@ -15,7 +15,7 @@
       </div>
   
       <div class="flex items-center gap-4">
-        <a href="#">
+        <a href="{{route('login')}}">
           <span class="sr-only">Logo</span>
           <span class="h-10 w-20 rounded-lg bg-gray-200"></span>
         </a>
@@ -115,14 +115,14 @@
   
       <div class="hidden items-center gap-4 lg:flex">
         <a
-          href="#"
+          href="{{route('login')}}"
           class="rounded-lg bg-gray-100 hover:text-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 px-5 py-2 text-sm font-medium text-gray-600"
         >
          <p> Log in</p>
         </a>
   
         <a
-          href="#"
+          href="{{route('register')}}"
           class="rounded-lg text-gray-600 bg-gray-100 hover:text-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 px-5 py-2 text-sm font-medium text-white"
         >
           Sign up

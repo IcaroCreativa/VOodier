@@ -12,9 +12,9 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function send(Request $request)
+    public function index()
     {
-       echo $request->email;
+      return 'LOGIN';
 
     }
 }

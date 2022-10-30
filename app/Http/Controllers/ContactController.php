@@ -12,7 +12,7 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function send(Request $request)
+    public function index()
     {
         return 'HOLA';
     }

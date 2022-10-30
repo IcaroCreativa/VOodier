@@ -5,7 +5,7 @@
 <x-slot name="login" >
     
     <br>      
-   <form method="POST" >
+   <form method="POST" action="{{Route('login_auth')}}">
        @csrf
     <div class='ml-5'>
         <label for="">
