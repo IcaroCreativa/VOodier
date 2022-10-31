@@ -16,7 +16,7 @@
     </head>
     <body class="">
         <x-navigation></x-navigation>
-        {{$about ?? ''}}
+        {{$about ?? ''}} 
         {{$enter_ad ?? ''}}
         {{$contact ?? ''}}
         {{$register ?? ''}}

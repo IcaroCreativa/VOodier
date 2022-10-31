@@ -100,8 +100,8 @@
           </a>
         </div>
         
-       
-
+ {{-- @guest permet de ne pas affiche les links vers login et register lorsque on est authentifiés        --}}
+@guest
         <div class=" gap-8 -mt-2  mr-2 md:flex lg:hidden">
           <a href="{{route('register')}}" class="flex items-center rounded-lg -mt-2 px-4 p-1 text-gray-600 hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white">
           <svg class="w-6 h-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -110,6 +110,8 @@
           <svg class="h-8 w-8 bg-gray-100 p-1  rounded-full stroke-blue-700 hover:stroke-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
           </a>
         </div>
+
+
 
       </nav>
   
@@ -129,8 +131,11 @@
         </a>
       </div>
     </div>
+@endguest
 
+@auth
 
+@endauth
   
 
   </div>

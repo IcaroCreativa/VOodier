@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             ]);
 
             //Auth::login($user); loger directement l'utilisateur après création puis il faut le rediriger vers le dashboard.
-            
+            session()->flash('ad_created', 'Congratulations you have created a new account! Confirm your email to active it!'); // creation du meesgae d'alert qui se verra dans la page index
            return to_route('login')->with('status','Account created!');
     }
     
