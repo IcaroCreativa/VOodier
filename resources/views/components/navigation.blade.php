@@ -1,13 +1,13 @@
-
-
-
+@auth
+<x-menu_user_account></x-menu_user_account>
+@endauth
 <header aria-label="Site Header" class="shadow-lg ">
     <div
       class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 "
     >
     <a href="{{route('home')}}"><img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="Voodies Logo" class="w-10 shadow-lg "></a>
       <div class="flex w-0 flex-1 lg:hidden ml-4 md:hidden">
-        <button href="{{route('login')}}" class=" rounded-full bg-gray-100  text-gray-600" type="button">
+        <button href="{{route('login')}}"  onclick="open_menu()" class=" rounded-full bg-gray-100  text-gray-600" type="button">
           <span class="sr-only">Account</span>
         
           <svg class="h-8 w-8 bg-gray-100 p-1 -mt-1 rounded-full stroke-blue-700 hover:stroke-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
@@ -111,7 +111,7 @@
           </a>
         </div>
 
-
+        
 
       </nav>
   
@@ -130,13 +130,22 @@
           Sign up
         </a>
       </div>
-    </div>
 @endguest
-
+{{-- ------Bouton User pour se deloger lorsqu'il est logged. Apparait seulement lorsqu'un utilisateur est logé.--- --}}
 @auth
-
-@endauth
+<div class="  -mt-4">
   
+  <a href="" class="">
+  <svg class="h-8 w-8 bg-gray-100 p-1  rounded-full stroke-blue-700 hover:stroke-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+  </a>
+  
+</div> 
+@endauth
+
+    </div>
+
+
+
 
   </div>
 
@@ -171,16 +180,25 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </a>
         </div>
-
+@guest
         <div class="flex ">
           <a href="{{route('register')}}" class="flex items-center rounded-lg  px-4 p-1 text-gray-600 hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
           </a>
         </div>
-
+@endguest
      
        
       </nav>
     </div>
   </header>
+
+  <script>
+    //permet de rendre invisible le menu account
+      $account=document.getElementById('account_menu');
+      function open_menu(){
+        $account.style.display = '';
+        
+      }
+    </script>
   

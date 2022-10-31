@@ -26,8 +26,8 @@
 
     {{-- -----------ALERT------------------ --}}
 
-    @if(session('ad_created'))
-      <div class=" bg-slate-800 bg-opacity-50  flex h-screen justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+    @if(session('status'))
+      <div id="alert" class=" bg-slate-800 backdrop-blur-sm bg-opacity-50  flex h-screen justify-center items-center absolute top-0 right-0 bottom-0 left-0">
         <div role="alert" class="rounded-xl w-1/2  mx-auto border bg-white border-gray-100 p-4 shadow-xl">
           <div class="flex items-start gap-4">
             <span class="text-green-600">
@@ -51,11 +51,11 @@
               <strong class="block font-medium text-gray-900"> Changes saved </strong>
         
               <p class="mt-1 text-sm text-gray-700">
-                {{session('ad_created')}}
+                {{session('status')}}
               </p>
             </div>
         
-            <button onclick="myFunction()" class="text-gray-500 transition hover:text-gray-600">
+            <button onclick="close_alert()" class="text-gray-500 transition hover:text-gray-600">
               <span class="sr-only">Dismiss popup</span>
         
               <svg
@@ -76,6 +76,13 @@
           </div>
         </div>
       </div>
+      <script>
+        //permet de rendre invisible l'alert
+          $alert=document.getElementById('alert');
+          function close_alert(){
+            $alert.style.display = 'none';
+          }
+        </script>
       @endif
         
       
@@ -320,15 +327,9 @@
               const desktopScreen = window.innerWidth < 768
               document.querySelector('details').open = !desktopScreen
             })
-
-            function myFunction() 
-            {
-              location.replace({{route('login')}})
-            }
-
           </script>
 
-        
+
             
     </body>
     

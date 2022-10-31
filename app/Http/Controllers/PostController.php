@@ -48,7 +48,7 @@ public function __construct()
               $request->validate(
                 [    // 'email' => ['email:rfc,dns'],
                     'title'=>['required','min:4'],
-                    'description' =>['required', 'min:25'],
+                    'description' =>['required', 'min:10'],
                     'img1' => 'required|mimes:png,jpg,jpeg|max:2048',
                     'price'=> 'required',
                     'location'=>'required',
@@ -103,10 +103,10 @@ public function __construct()
                 }
                 /* ----- envoyer dans la BDD = requête SQL INSERT INTO ads() VALUES() ---- */ 
                 $Annonce -> save();
-                session()->flash('ad_created', 'YEees yo have created a new ad!'); // creation du meesgae d'alert qui se verra dans la page index
+                //session()->flash('status', 'YEees yo have created a new ad!'); // creation du meesgae d'alert qui se verra dans la page index
                 /* Renvoyer ensuite sur la page index par le biais de la route
                 pour afficher les données Route::get('/ads', [AdsController::class, 'index']); */
-                return Redirect('/index')->with('success', "Image uploaded successfully.");
+                return Redirect('/index')->with('status', "Your ad has been created!");
             }
 
 

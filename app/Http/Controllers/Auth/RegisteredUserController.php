@@ -18,7 +18,7 @@ class RegisteredUserController extends Controller
             'email'=>['required','string','email','max:255','unique:users'],
             'password'=>['required', 'confirmed',Rules\Password::defaults()],
             'phone_number'=>['required','digits:10'],
-            'login'=>['required','string', 'min:8']
+            'login'=>['required','string', 'min:8','unique:users']
 
 
         ]);

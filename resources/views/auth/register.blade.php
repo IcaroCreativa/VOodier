@@ -86,7 +86,7 @@
                 name="first_name"
                 value='{{old('first_name')}}'
                 autofocus="autofocus"
-                class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full pl-2 border border-slate-400  md:text-lg rounded-md  bg-white text-sm text-gray-700 shadow-sm"
               />
               @error('first_name')
                 <br> <small class="text-red-600 ">{{$message}}</small>
@@ -106,7 +106,7 @@
                 id="LastName"
                 name="last_name"
                 value='{{old('last_name')}}'
-                class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full pl-2 rounded-md  border border-slate-400  md:text-lg bg-white text-sm text-gray-700 shadow-sm"
               />
               @error('Last_name')
                 <br> <small class="text-red-600 ">{{$message}}</small>
@@ -123,7 +123,7 @@
                 id="Email"
                 name="email"
                 value='{{old('email')}}'
-                class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full pl-2 rounded-md border border-slate-400  md:text-lg bg-white text-sm text-gray-700 shadow-sm"
               />
               @error('email')
                 <br> <small class="text-red-600 ">{{$message}}</small>
@@ -131,8 +131,9 @@
             </div>
   
             <div class="col-span-6 sm:col-span-3">
+              <div class='relative'>
               <label
-                for="Password"
+                for="password"
                 class="block text-sm font-medium text-gray-700"
               >
                 Password
@@ -140,19 +141,46 @@
   
               <input
                 type="password"
-                id="Password"
+                id="password"
                 name="password"
                 value=''
-                class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full pl-2 rounded-md border border-slate-400  md:text-lg bg-white text-sm text-gray-700 shadow-sm"
               />
+              <span class="absolute inset-y-0 right-1 inline-flex items-center  mt-6">
+          
+                <a  type="checkbox" onmousedown="myFunction()">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 stroke-blue-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg></a>
+                </span>
+
               @error('password')
                 <br> <small class="text-red-600 ">{{$message}}</small>
               @enderror
             </div>
+          </div>
   
             <div class="col-span-6 sm:col-span-3">
+              <div class='relative'>
               <label
-                for="PasswordConfirmation"
+                for="password_confirmation"
                 class="block text-sm font-medium text-gray-700"
               >
                 Password Confirmation
@@ -160,14 +188,43 @@
   
               <input
                 type="password"
-                id="PasswordConfirmation"
+                id="password_confirmation"
                 name="password_confirmation"
                 value=''
-                class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full pl-2 rounded-md border border-slate-400  md:text-lg bg-white text-sm text-gray-700 shadow-sm"
               />
+              <span class="absolute inset-y-0 right-1 inline-flex items-center  mt-6">
+          
+                <a  type="checkbox" onmousedown="myFunction2()">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 stroke-blue-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg></a>
+                </span>
+
+
+
+
               @error('password_confirmation')
                 <br> <small class="text-red-600 ">{{$message}}</small>
               @enderror
+            </div>
             </div>
 
             
@@ -185,7 +242,7 @@
                   name="phone_number"
                   value='{{old('phone_number')}}'
                   
-                  class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  class="mt-1 w-full pl-2 rounded-md border border-slate-400  md:text-lg bg-white text-sm text-gray-700 shadow-sm"
                 />
                 @error('phone_number')
                 <br> <small class="text-red-600 ">{{$message}}</small>
@@ -206,7 +263,7 @@
                   id="login"
                   name="login"
                   value='{{old('login')}}'
-                  class="mt-1 w-full pl-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  class="mt-1 w-full pl-2 rounded-md border border-slate-400  md:text-lg bg-white text-sm text-gray-700 shadow-sm"
                 />
                 @error('login')
                 <br> <small class="text-red-600 ">{{$message}}</small>
@@ -257,6 +314,28 @@
       </main>
     </div>
   </section>
+
+  {{-- Script permettant de visualiser les mots de passe au cliqk de l'icon oeil --}}
+  
+  <script type="text/javascript">
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      
+      }}
+
+      function myFunction2() {
+      var x = document.getElementById("password_confirmation");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+    </script>
 </body> 
 </html>
 
