@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="@yield('meta-description','Default meta description')">
         <link rel="icon" type="image/png" href="{{URL::asset('/images/Voodies_favicon.png')}}" />
-        <title>Voodies {{$title }}</title>
+        <title>Voodies</title>
         @vite('resources/css/app.css')
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,11 +23,12 @@
         {{$login ?? ''}}
         {{$add ?? ''}}
         {{$blur ?? ''}}
+        {{$dashboard ?? ''}}
 
     {{-- -----------ALERT------------------ --}}
 
     @if(session('status'))
-      <div id="alert" class=" bg-slate-800 backdrop-blur-sm bg-opacity-50  flex h-screen justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+      <div id="alert" class=" bg-slate-800 backdrop-blur-sm bg-opacity-50  w-1/2  flex  justify-center items-center absolute top-1 right-0 bottom-0 left-4">
         <div role="alert" class="rounded-xl w-1/2  mx-auto border bg-white border-gray-100 p-4 shadow-xl">
           <div class="flex items-start gap-4">
             <span class="text-green-600">

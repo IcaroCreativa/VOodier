@@ -1,9 +1,9 @@
 
 
-<x-layouts.app title="" >
+{{-- <x-layouts.app title="" > --}}
 
   
-
+  <x-app-layout >
   
 
     <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
@@ -78,7 +78,7 @@
   
 
 
-
+  </x-app-layout>
     
-  
-</x-layouts.app>
+{{--   
+</x-layouts.app> --}}

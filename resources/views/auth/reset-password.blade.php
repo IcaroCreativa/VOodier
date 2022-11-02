@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="@yield('meta-description','Default meta description')">
-        <link rel="icon" type="image/png" href="{{URL::asset('/images/Voodies_favicon.png')}}" />
-        <title>Voodies register</title>
-        @vite('resources/css/app.css')
-    </head>
 
-
-    <body>
-
+<x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -62,4 +50,4 @@
         </form>
     </x-auth-card>
 
-</body>
+</x-guest-layout>

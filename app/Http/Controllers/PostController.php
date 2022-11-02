@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
  
 
@@ -37,9 +39,11 @@ public function __construct()
         }
 
         public function show(Post $ad)
-        {
+        {  
+            $login = DB::select('select login from users where id = ?', [$ad->user_id]);
+            
             // $ad=Post::findOrFail($ad); Pour utilser la fonction de cette façon enlever Post des arguments 
-              return view('ad',['ad'=>$ad]);
+              return view('ad',['ad'=>$ad], ['login'=>$login]);
             }
   
         public function create(Request $request)
@@ -52,6 +56,7 @@ public function __construct()
                     'img1' => 'required|mimes:png,jpg,jpeg|max:2048',
                     'price'=> 'required',
                     'location'=>'required',
+                    'category'=>'required'
                 ]
                 );
               
@@ -68,7 +73,7 @@ public function __construct()
                 $Annonce -> category_id = $request -> category;
                 $Annonce -> description = $request -> type_ad;
                 $Annonce -> description = $request -> description;
-
+                $Annonce->user_id=Auth::user()->id;
                 $Annonce -> price = $request -> price;
                 $Annonce->condition_id=$request->condition;
                 $Annonce -> location = $request -> location;
@@ -109,6 +114,18 @@ public function __construct()
                 return Redirect('/index')->with('status', "Your ad has been created!");
             }
 
+              /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {   $id=Post::find($id);
+        $id->delete();
+        return redirect('index')->with('status', 'Your ad has been delete');
+    }
+            
 
 
 

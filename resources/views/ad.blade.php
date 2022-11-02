@@ -12,13 +12,15 @@ post
 
 
 
-<x-layouts.app >
+{{-- <x-layouts.app > --}}
+
+  <x-app-layout >
   <x-slot name="title">{{$ad->title}}</x-slot>
   <x-slot name="meta-Description">We are Epitech's student</x-slot>
   
 
   <x-slot name="about">
- 
+    
     <div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8 ">
       <div class=" mx-auto max-w-lg  ">
         <section class="shadow-2xl ">
@@ -187,9 +189,13 @@ post
                             </label>
                           </fieldset>
 
-
-
-                      <p class="mt-0.5 text-sm">{{$ad->user_id}}</p>
+                      @if(isset($login[0]->login)==true)     {{-- Retrouve le login de la personne qui a poster l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
+                      {{ $login=$login[0]->login;}}     
+                      @else
+                        {{$login='voodies user';}}  
+                      @endif
+                          
+                      <p class="mt-2 text-base text-blue-700 font-medium">{{ucfirst(strtolower($login))}}</p>
           
                       <div class="mt-2 -ml-0.5 flex">
                        <p class="font-medium mb-2 text-slate-600">Description</p>
@@ -347,4 +353,6 @@ post
  
  
   
-</x-layouts.app>
+{{-- </x-layouts.app> --}}
+
+</x-app-layout >

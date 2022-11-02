@@ -1,9 +1,10 @@
-<x-layouts.app >
+{{-- <x-layouts.app > --}}
+  <x-app-layout>
     <x-slot name="title">Antonio</x-slot>
     <x-slot name="meta-Description">We are Epitech's student</x-slot>
    
     <x-slot name="contact">
-       
+     
         <!-- ====== Contact Section Start -->
 <section class="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]">
     <div class="container mx-auto">
@@ -957,7 +958,8 @@
 
     </x-slot>
     
-   
+
+  </x-app-layout>
    
     
-</x-layouts.app>
+{{-- </x-layouts.app> --}}

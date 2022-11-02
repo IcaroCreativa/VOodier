@@ -1,7 +1,9 @@
 
 
 
-<x-layouts.app >
+{{-- <x-layouts.app > --}}
+
+  <x-app-layout>
   <x-slot name="title">Create ad</x-slot>
   <x-slot name="meta-Description">We are Epitech's student</x-slot>
  <h1 class="bg-blue-700 text-white">PAGINA DE CREATE POST</h1>
@@ -291,7 +293,7 @@ $('#file-select-button').click(function(){
 
   
  
- 
+</x-app-layout>
   
-</x-layouts.app>
+{{-- </x-layouts.app> --}}
 
