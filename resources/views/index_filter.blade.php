@@ -1,21 +1,51 @@
+Je suis dans la page des filtres
 
+{{-- @include('layouts/app') --}}
+
+{{-- {{dd($query)}} --}}
+
+@foreach($query as $items)
+<table>
+
+<ol>
+  <li>{{$items->title}}
+    <ul>
+      <li>Catégorie : {{$items->category_id}}</li>
+      <li>description : {{$items->description}}</li>
+      <li>prix : {{$items->price}}</li>
+      <li>contact : {{$items->user_id}}</li>
+      <li>localisation : {{$items->location}}</li>
+      <li>condition : {{$items->condition_id}}</li>
+      <li>photo : {{$items->image1}}</li>
+    </ul>
+  </li>
+</ol>
+
+@endforeach
+
+
+
+{{dd()}}
 
 {{-- <x-layouts.app title="" > --}}
 
   
   <x-app-layout >
   
+    <x-slot name="index_filter">
 
     <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
       
       
-      @if($ads->count()==0)
+      {{-- @if($ads->count()==0)
       <div class="mx-auto mt-20 p-10 w-3/4 grid col-span-3  grid rows-span-2 rounded-lg shadow-lg bg-slate-100 justify-items-center"> 
         <img src="{{Storage::url('\images\advertising.png')}}" alt="favicon ad">
         <h1 class="text-slate-700 md:text-3xl text-center text-justify ">Wow, it seems there are no ads. Connect and send us your first ad!!</h1> 
       </div>
-      @endif
-      @foreach($ads as $ad)
+      @endif --}}
+      {{-- {{dd($query)}} --}}
+
+      @foreach($query as $ad)
       <a href="{{$ad->id}}">
       <div class="">
         <div class="mt-8">
@@ -34,8 +64,10 @@
                
                 </time>
                
-                <p class="mb-2 mt-2 text-right text-gray-500"> {{$ad->category_id}}</p>
-              
+              <div class="w-full flex justify-end">
+                <p class="mb-2 mt-2 text-center text-white w-24 rounded-sm  pl-1 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"> {{$ad->category_id}}</p>
+              </div>
+ 
           
              <div class="grid grid-cols-2 grid-rows-1">
               <div class="grid">
@@ -71,12 +103,8 @@
    
 
  
-   
-   
-
-
+  </x-slot>
   
-
 
   </x-app-layout>
     

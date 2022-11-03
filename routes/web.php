@@ -52,7 +52,6 @@ Route::post('/register',[RegisteredUserController::class,'store']);
 
 
 
-
 Route::middleware('auth')->group(function () {
 
 Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
@@ -75,7 +74,8 @@ Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'
 
 Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
-
+// Route pour filtrer les posts depuis la view app.blade.php
+Route::post('index_filter', [PostController::class,'filtre'])->name('filter_post');
 
 Route::post('contact',[ContactController::class,'show'])->name('contact');
 Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');

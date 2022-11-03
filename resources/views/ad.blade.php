@@ -189,7 +189,7 @@ post
                             </label>
                           </fieldset>
 
-                      @if(isset($login[0]->login)==true)     {{-- Retrouve le login de la personne qui a poster l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
+                      @if(isset($login[0]->login)==true)     {{-- Retrouve le login de la personne qui a posté l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
                       {{ $login=$login[0]->login;}}
                       @else
                         {{$login='voodies user';}}

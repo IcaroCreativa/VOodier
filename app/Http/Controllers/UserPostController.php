@@ -17,12 +17,16 @@ class UserPostController extends Controller
      */
     public function index()
     {
+        // $userID = Auth::user()->id; 
+        // $posts = DB::select('select * from post where user_id = ?', [$userID]);
+        // $categories=Category::get();
+        // // $posts=Post::where('user_id', $userID)->get();
+        // return view('dashboard',['posts'=>$posts,'categories'=>$categories]);
+
         $userID = Auth::user()->id; 
         $posts = DB::select('select * from post where user_id = ?', [$userID]);
-        $categories=Category::get();
-        // $posts=Post::where('user_id', $userID)->get();
-        return view('dashboard',['posts'=>$posts,'categories'=>$categories]);
-       
+        $categories=Category::all();
+        return view('dashboard',compact('posts','categories'));
         
     }
 
@@ -55,9 +59,14 @@ class UserPostController extends Controller
      */
     public function show(Request $request)
     {
+        // $post=Post::find($request->id);
+        // $categories=Category::get();
+        // return view('dashboard_update_ad',['post'=>$post,'categories'=>$categories]);
+
         $post=Post::find($request->id);
-        $categories=Category::get();
-        return view('dashboard_update_ad',['post'=>$post,'categories'=>$categories]);
+        $categories=Category::all();
+        return view('dashboard_update_ad',compact('post','categories'));
+
     }
 
     /**
