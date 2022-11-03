@@ -73,7 +73,7 @@
                                              @foreach($categories as $category)
                                             <option value="{{$category->category}}">{{$category->category}}</option>
                                             @endforeach 
-  
+                                            
                                         </select>
                                        
                                     </strong>
@@ -81,10 +81,10 @@
                                     <div class="mt-8 flex justify-between">
                                         <div class="max-w-[35ch] ">
                                             <div class="mt-4 grid align-start -ml-2">
-                                            <label for="tile" class="text-base w-20  font-medium text-slate-600" >
+                                            <label for="tile" class="text-base w-20  font-medium text-slate-600 ">
                                                     Title
                                             </label>
-                                            <input required type="text" id="title" name="title" value={{$post->title}} class="border rounded-sm border-slate-400">
+                                            <input type="text" id="title" name="title" value={{$post->title}} class="border rounded-sm border-slate-400">
                                             </div>
 
                                             <fieldset class="mt-4 space-x-6">
@@ -134,7 +134,7 @@
                                     <!-- --------------Price---------------------- -->
                                         <div class="mt-4 grid align-start -ml-2 ">
                                             <label for="price" class="text-base w-20  font-medium text-slate-600  ">Price</label>
-                                            <input required type="number" name="price" id="price" value="{{$post->price}}" class=" w-24 pl-2 border border-slate-400 rounded-sm" min="0">
+                                            <input type="number" name="price" id="price" value="{{$post->price}}" class=" w-24 pl-2 border border-slate-400 rounded-sm" min="0">
                                         </div>
                                             
                                         </div>
@@ -145,7 +145,7 @@
                                     <div class="grid mt-2">
                                         <div class="mt-2 grid align-start -ml-2 ">
                                             <label for="description" class="text-base w-20  font-medium text-slate-600 ">Description</label>
-                                            <textarea required name="description" id="description" cols="32" rows="6" class=" w-60 md:w-52 rounded-sm pl-2 text-sm border border-slate-400" >{{$post->description}} </textarea>
+                                            <textarea name="description" id="description" cols="32" rows="6" class=" w-60 md:w-52 rounded-sm pl-2 text-sm border border-slate-400" >{{$post->description}} </textarea>
                                                 
                                           
                                         </div>
@@ -156,7 +156,7 @@
                                     <!-- -------LOCATION-------- -->
                                     <div  class="mt-2 grid align-start -ml-2 "> 
                                         <label for="location" class="text-base w-20  font-medium text-slate-600 ">Location</label>
-                                        <input required type="number" id="location" name="location"  value="{{$post->location}}" class="border rounded-sm border-slate-400"> 
+                                        <input type="number" id="location" name="location"  value="{{$post->location}}" class="border rounded-sm border-slate-400"> 
                                         
                                     </div>
                                     <!-- ---------END LOCATION ------- -->
