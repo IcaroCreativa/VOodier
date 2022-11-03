@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\City;
 
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
-use Illuminate\Support\Str;
 // use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -31,11 +32,11 @@ public function __construct()
 }
 
         public function index()
-        {
-        
+        {  
+          $cities=City::get();
           $posts=Post::get();
           $categories=Category::get();
-          return view('index',["ads"=>$posts ,'categories'=>$categories]);
+          return view('index',["ads"=>$posts ,'categories'=>$categories,'cities'=>$cities]);
         }
 
         public function show(Post $ad)
@@ -125,7 +126,35 @@ public function __construct()
         $id->delete();
         return redirect('index')->with('status', 'Your ad has been delete');
     }
-            
+    
+    
+    public function update(Request $request,$id)
+    {
+         
+      
+      // //validation des données du formulaire
+      //    $request->validate(
+      //       [    
+      //           'title'=>['required','min:4'],
+      //           'description' =>['required', 'min:10'],
+      //           'img1' => 'required|mimes:png,jpg,jpeg|max:2048',
+      //           'price'=> 'required',
+      //           'location'=>'required',
+      //           'category'=>'required'
+      //       ]
+      //       );
+
+        $ad=Post::find($id);
+        $ad->title=$request->input('title');
+        $ad->price=$request->input('price');
+        $ad->description=$request->input('description');
+        $ad->location=$request->input('description');
+        $ad->category_id=$request->input('category');
+        $ad->save();
+        // ->with('status','AD modified');
+        return redirect('index');
+        
+    }
 
 
 

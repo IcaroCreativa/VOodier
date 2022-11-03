@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
@@ -40,14 +41,19 @@ Route::view('/login','auth.login')->name('login');
 Route::post('/login',[AuthenticatedSessionController::class,'store']);
 Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
-Route::view('create_post','create_post')->middleware('auth')->name('create_post');
-Route::view('contact','contact')->name('contact');
 
+Route::view('/zip','zip')->middleware('auth')->name('zip');
+Route::post('zip',[CityController::class,'__invoke'])->middleware('auth')->name('location');
+
+Route::get('create_post',[CityController::class, 'show'])->middleware('auth')->name('create_post');
+Route::post('/index', [PostController::class, 'create'])->middleware('auth')->name('registro');
 
 Route::get('/{ad}',[PostController::class,'show']);
+
+Route::view('contact','contact')->name('contact');
 Route::post('contact',[ContactController::class,'store'])->name('contact');
 
-Route::post('/ads', [PostController::class, 'create'])->name('registro');
+
 Route::post('/register',[RegisteredUserController::class,'store']);
 
 
@@ -62,7 +68,7 @@ Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'
 
 Route::post('dashboard',[UserPostController::class,"index"])->name('dashboard');
 Route::post('dashboard_update_ad',[UserPostController::class,"show"])->name('dashboard_update_ad');
-Route::put('dashboard_update_ad/{id}',[UserPostController::class,"update"])->name('ad_updated');
+Route::put('dashboard_update_ad/{id}',[PostController::class,"update"])->name('ad_updated');
 
 Route::post('/dashboard/{id}',[PostController::class,'destroy'])->name('delete_ad');
 

@@ -16,56 +16,68 @@
     </head>
     <body class="">
         <x-navigation></x-navigation>
-        {{$about ?? ''}} 
-        {{$enter_ad ?? ''}}
-        {{$contact ?? ''}}
-        {{$register ?? ''}}
-        {{$login ?? ''}}
-        {{$add ?? ''}}
-        {{$blur ?? ''}}
-        {{$dashboard ?? ''}}
-        {{$message ?? ''}}
+      
+        
+    {{-- -----------ALERT------------------ --}}
 
-    
-{{-- ----------------------alert---------------------------------------- --}}
-        @if(session('status'))
-        <div class="z-10 flex mx-auto shadow:lg mt-32 w-1/2 xl:1/4 lg:1/3">
-      <div class="modal fade  w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-      id="alert_message" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog relative w-auto pointer-events-none shadow:lg ">
-        <div
-          class=" bg-gray-100 border shadow:lg border-gray-300 modal-content  shadow-lg relative flex flex-col w-full pointer-events-auto  bg-clip-padding rounded-md  text-current">
-          <div
-            class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-            <img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="logo voodies" class="h-8 w-8">
-            
-           
-          </div>
-          <div class="modal-body relative p-4">
-            {{session('status')}}
-          </div>
-          <div
-            class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-            <button type="button" onclick="close_alert()"
-              class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-              data-bs-dismiss="modal">Close</button>
-    
+    @if(session('status'))
+      <div id="alert" class=" bg-slate-800 backdrop-blur-sm bg-opacity-50  w-1/2  flex  justify-center items-center absolute top-1 right-0 bottom-0 left-4">
+        <div role="alert" class="rounded-xl w-1/2  mx-auto border bg-white border-gray-100 p-4 shadow-xl">
+          <div class="flex items-start gap-4">
+            <span class="text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </span>
+        
+            <div class="flex-1">
+              <strong class="block font-medium text-gray-900"> Changes saved </strong>
+        
+              <p class="mt-1 text-sm text-gray-700">
+                {{session('status')}}
+              </p>
+            </div>
+        
+            <button onclick="close_alert()" class="text-gray-500 transition hover:text-gray-600">
+              <span class="sr-only">Dismiss popup</span>
+        
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
-    </div>
-    </div>
-          <script>
-            //permet de rendre invisible l'alert
-              $alert=document.getElementById('alert_message');
-              function close_alert(){
-                $alert.style.display = 'none';
-                document.location.href="/index";
-              }
-            </script>
-          @endif
-    
+      <script>
+        //permet de rendre invisible l'alert
+          $alert=document.getElementById('alert');
+          function close_alert(){
+            $alert.style.display = 'none';
+          }
+        </script>
+      @endif
         
       
 
@@ -73,7 +85,7 @@
         <section>
             <div class="  mx-auto max-w-screen-xl  px-4  py-6 sm:px-4 lg:px-4 {{request()->routeIs('home') ?'' :'hidden'}}">
               <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
-                <div class=" ">
+                <div class="lg:sticky lg:top-4">
                   <details open class="overflow-hidden rounded border border-gray-200">
                     <summary
                       class="flex items-center justify-between text text-white px-5 py-3 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 lg:hidden"
@@ -292,13 +304,68 @@
                   </details>
                 </div>
                 <div class="lg:col-span-3">
+                  
+{{-- ---------------------------------CARD POUR BOUCLER---------------------------------------- --}}
+<div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
+
+  @foreach($ads as $ad)
+  <a href="{{$ad->id}}">
+  <div class="">
+    <div class="mt-8">
+      <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+          
+         
+
+           <div class="flex  justify-center">
+            <img class="object-cover w-full h-48" src="{{Storage::url($ad->image1)}}" alt="Modern building architecture">
+          </div>
         
-                   <div class="{{request()->routeIs('home') ?'' :'hidden'}}">
-              
-                    {{$slot ?? ''}}
-                    
-                   
-                  </div>
+          <div class="bg-white p-4 sm:p-6">
+            <time datetime="2022-10-10" class="block  text-xs text-gray-500">
+           {{$ad->created_at->toDateString()}}  {{--  affiche suelement la date malgré un timesatmp --}}
+           
+           
+            </time>
+           <div class="w-full flex justify-end">
+            <p class="mb-2 mt-2 text-center text-white w-24 rounded-sm  pl-1 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"> {{$ad->category_id}}</p>
+            </div>
+           
+      
+         <div class="grid grid-cols-2 grid-rows-1">
+          <div class="grid">
+              <h3  class="mt-0.5 text-lg font-medium  text-gray-900">
+                 {{-- {{$ad->creates_at}} --}}
+                 {{$ad->title}}
+              </h3>
+          </div>
+          <div class="grid justify-end">
+              <h3 class="mt-0.5 text-lg text-gray-900">
+                {{-- {{$ad['price']}} --}}
+                {{$ad->price}} €
+              </h3>
+          </div>
+          </div>
+            {{-- <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3 text-justify">
+              {{-- {{$ad['description']}} --}}
+              {{-- {{$ad->description}} --}}
+            {{-- </p> --}} 
+
+            
+            <div clas="grid">
+            <p class="mt-2 inline-block font-medium">Location</p>
+            <p class="mt-2 bg-gray-50 p-2 text-right w-full">{{$ad->location}} </p> {{-- {{$ad['zip']}}  {{$ad['location']}} --}}
+            </div>
+          
+          </div>
+        </article>
+      </div>
+  </div></a>
+  @endforeach
+</div>
+                         
+                  
+   {{-- -------------------------------------END CARD POUR BOUCLER ---------------------------------                --}}
+                
                   
                 </div>
                 </div>

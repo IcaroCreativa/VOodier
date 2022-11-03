@@ -165,7 +165,7 @@
         </label>
     </div>
   </div>
-  
+
 </div>
 @error('img1')
   <br> <small class="text-red-600 text-left ">{{$message}}</small>
@@ -173,17 +173,14 @@
 @enderror
 
 </div>
-
-
-
-  </div>
+</div>
   
        {{-- ----PRICE----- --}}
 
       <div class="grid grid-cols-2  mt-4 ">
         <div class="grid w-40 md:w-60">
         <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Price €</label>
-        <input type="number" id="price" name=price value="{{old('price')}}" min=0 class="block p-2 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input type="number" id="price" name=price value="{{old('price')}}" min=0 class="block p-1 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         @error('price')
          <small class="text-red-600 ">{{$message}}</small>
         @enderror
@@ -204,20 +201,23 @@
           </div>
        </div> 
       </div>
+{{-- ------END PRICE------ --}}
 
+{{-- ------City------ --}}
       <div class="grid grid-cols-2  mt-4 ">
         <div class="grid w-40 md:w-60">
-        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" >Location</label>
-        <input type="number" id="location" name="location" min=0 max=99999 value="{{old('location')}}"placeholder="Enter Zip.." class="block p-2 w-32 text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500" >
+        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" >City</label>
+        <input  type="text" id="location" name="location" min=0 max=99999 value="{{$city}}" class="block p-1 w-full text-gray-900 font-medium bg-gray-50 rounded-lg border border-gray-300  focus:ring-blue-500 focus:border-blue-500" >
         @error('location')
-       <small class="text-red-600 ">{{$message}}</small>
-        @enderror
-       </div> 
+        <small class="text-red-600 ">{{$message}}</small>
+       @enderror
+
+
+      </div> 
       </div>
-      {{-- ------END PRICE------ --}}
+      
     </div>  
-   
-  {{-- ---------------END-----------      --}}
+{{-- ---------------END- CIty----------      --}}
         <button
           type="submit"
           class="block w-full rounded-lg px-5 py-3 text-xl font-medium text-white bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"
@@ -225,13 +225,11 @@
           Send
         </button>
   
-        <p class="text-center text-sm text-gray-500">
-          No account?
-          <a class="underline" href="">Sign up</a>
-        </p>
+      
+        
         
       </form>
-    </div>
+     </div>
   </div> 
 
   

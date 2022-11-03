@@ -6,7 +6,7 @@
   
   <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
     <div class="">
-      <div class="mt-8">
+      <div class="mt-8 ">
         <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
             <img
               alt="Office"
