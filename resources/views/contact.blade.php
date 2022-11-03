@@ -2,9 +2,11 @@
   <x-app-layout>
     <x-slot name="title">Antonio</x-slot>
     <x-slot name="meta-Description">We are Epitech's student</x-slot>
-   
+
     <x-slot name="contact">
-     
+        {{-- @dump($info_user)
+        @dump($info_post) --}}
+
         <!-- ====== Contact Section Start -->
 <section class="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]">
     <div class="container mx-auto">
@@ -94,7 +96,7 @@
         </div>
         <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
           <div class="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
-            <form method="post"  >
+            <form method="post"  action="{{route('send_email')}}">
                 @csrf
                 @method('POST')
               <div class="mb-6">
@@ -102,13 +104,17 @@
                   type="text"
                   placeholder="Your Name"
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
-                />
+                  value=""
+                  name="name_seller" required
+                  />
               </div>
               <div class="mb-6">
                 <input
                   type="email"
                   placeholder="Your Email"
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
+                  name="email_seller" required
+
                 />
               </div>
               <div class="mb-6">
@@ -116,22 +122,26 @@
                   type="text"
                   placeholder="Your Phone"
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
+                  name="phone_seller" required
+
                 />
               </div>
               <div class="mb-6">
                 <textarea
                   rows="6"
                   placeholder="Your Message"
+
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
-                ></textarea>
+                  name="message_seller" required
+                >
+            Bonjour {{$info_user->first_name}},
+                Je vous contacte pour l'annonce {{$info_post->title}}
+
+            </textarea>
               </div>
               <div>
-                <button
-                  type="submit"
-                  class="bg-gradient-to-r from-red-800 via-red-600 to-red-500 border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90"
-                >
-                  Send Message
-                </button>
+                <button type="submit"  class="bg-gradient-to-r from-red-800 via-red-600 to-red-500 border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90">Send Message</button>
+
               </div>
             </form>
             <div>
@@ -948,7 +958,7 @@
     </div>
   </section>
   <!-- ====== Contact Section End -->
-  
+
 
 
 
@@ -957,9 +967,9 @@
 
 
     </x-slot>
-    
+
 
   </x-app-layout>
-   
-    
+
+
 {{-- </x-layouts.app> --}}

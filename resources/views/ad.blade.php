@@ -295,9 +295,16 @@ post
                           </label>
     
                           <!-- ----Bouton contact ----- -->
-                          <div class="ml-16 mt-8  md:mt-8 md:mx-10">
+                           <div class="ml-16 mt-8  md:mt-8 md:mx-10">
                             <button type="submit" class="md:w-28 p-2 h-12 w-32 rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white ">Contact</button>
-                        </div>
+                        </div> 
+                        <form method="POST" action="{{route('contact')}}">
+                          @csrf
+                      <button type="submit" class="md:w-28 p-2 h-12 w-32 rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white " name="user_id" value="{{$ad->user_id}}">Contact</button>
+                      <input type="text" class="hidden" value="{{$ad->id}}" name="post_id">
+                  </form>
+
+                </div>
                         </div> 
                       </div>
                     </fieldset>

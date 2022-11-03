@@ -83,3 +83,6 @@ Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('
 // Route pour filtrer les posts depuis la view app.blade.php
 Route::post('index_filter', [PostController::class,'filtre'])->name('filter_post');
 });
+
+Route::post('contact',[ContactController::class,'show'])->name('contact');
+Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');
