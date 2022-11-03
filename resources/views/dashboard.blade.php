@@ -4,7 +4,7 @@
 
 <div class="grid grid-cols-9 grid-rows-1 h-8  overflow-x-auto mt-1 mx-2 relative bg-gray-100 shadow-md sm:rounded-md mt-4 border border-gray-400">
 <div class=" text-center font-medium text-slate-600 ">Image</div>
-<div class="text-center font-medium text-slate-600">Title</div>
+<div class="text-center font-medium text-slate-600">Tilte</div>
 <div class="text-center font-medium text-slate-600">Category</div>
 <div class="text-center font-medium text-slate-600">Price</div>
 <div class="text-center font-medium text-slate-600">Description</div>

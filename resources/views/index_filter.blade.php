@@ -1,112 +1,388 @@
-Je suis dans la page des filtres
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="@yield('meta-description','Default meta description')">
+        <link rel="icon" type="image/png" href="{{URL::asset('/images/Voodies_favicon.png')}}" />
+        <title>Voodies</title>
+        @vite('resources/css/app.css')
+        <!-- Fonts -->
+        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-{{-- @include('layouts/app') --}}
+       
+       
 
-{{-- {{dd($query)}} --}}
-
-@foreach($query as $items)
-<table>
-
-<ol>
-  <li>{{$items->title}}
-    <ul>
-      <li>Catégorie : {{$items->category_id}}</li>
-      <li>description : {{$items->description}}</li>
-      <li>prix : {{$items->price}}</li>
-      <li>contact : {{$items->user_id}}</li>
-      <li>localisation : {{$items->location}}</li>
-      <li>condition : {{$items->condition_id}}</li>
-      <li>photo : {{$items->image1}}</li>
-    </ul>
-  </li>
-</ol>
-
-@endforeach
-
-
-
-{{dd()}}
-
-{{-- <x-layouts.app title="" > --}}
-
-  
-  <x-app-layout >
-  
-    <x-slot name="index_filter">
-
-    <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
+    </head>
+    <body class="">
+        <x-navigation></x-navigation>
       
-      
-      {{-- @if($ads->count()==0)
-      <div class="mx-auto mt-20 p-10 w-3/4 grid col-span-3  grid rows-span-2 rounded-lg shadow-lg bg-slate-100 justify-items-center"> 
-        <img src="{{Storage::url('\images\advertising.png')}}" alt="favicon ad">
-        <h1 class="text-slate-700 md:text-3xl text-center text-justify ">Wow, it seems there are no ads. Connect and send us your first ad!!</h1> 
-      </div>
-      @endif --}}
-      {{-- {{dd($query)}} --}}
+        
+    {{-- -----------ALERT------------------ --}}
 
-      @foreach($query as $ad)
-      <a href="{{$ad->id}}">
-      <div class="">
-        <div class="mt-8">
-          <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
-              <img
-                alt="Office"
-                src="{{Storage::url($ad->image1)}}"
-                class="h-32 w-full object-cover"
-              />
-              
-            
-              <div class="bg-white p-4 sm:p-6">
-                <time datetime="2022-10-10" class="block  text-xs text-gray-500">
-               {{$ad->created_at->toDateString()}}  {{--  affiche seulement la date malgré un timesatmp --}}
-               
-               
-                </time>
-               
-              <div class="w-full flex justify-end">
-                <p class="mb-2 mt-2 text-center text-white w-24 rounded-sm  pl-1 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"> {{$ad->category_id}}</p>
-              </div>
- 
-          
-             <div class="grid grid-cols-2 grid-rows-1">
-              <div class="grid">
-                  <h3  class="mt-0.5 text-lg font-medium  text-gray-900">
-                     {{-- {{$ad->creates_at}} --}}
-                     {{$ad->title}}
-                  </h3>
-              </div>
-              <div class="grid justify-end">
-                  <h3 class="mt-0.5 text-lg text-gray-900">
-                    {{-- {{$ad['price']}} --}}
-                    {{$ad->price}} €
-                  </h3>
-              </div>
-              </div>
-                <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3 text-justify">
-                  {{-- {{$ad['description']}} --}}
-                  {{$ad->description}}
-                </p>
-                
-                <div clas="grid">
-                <p class="mt-2 inline-block font-medium">Location</p>
-                <p class="mt-2 bg-gray-50 p-2 text-right w-full">{{$ad->location}} </p> {{-- {{$ad['zip']}}  {{$ad['location']}} --}}
-                </div>
-              
-              </div>
-            </article>
+    @if(session('status'))
+      <div id="alert" class=" bg-slate-800 backdrop-blur-sm bg-opacity-50  w-1/2  flex  justify-center items-center absolute top-1 right-0 bottom-0 left-4">
+        <div role="alert" class="rounded-xl w-1/2  mx-auto border bg-white border-gray-100 p-4 shadow-xl">
+          <div class="flex items-start gap-4">
+            <span class="text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </span>
+        
+            <div class="flex-1">
+              <strong class="block font-medium text-gray-900"> Changes saved </strong>
+        
+              <p class="mt-1 text-sm text-gray-700">
+                {{session('status')}}
+              </p>
+            </div>
+        
+            <button onclick="close_alert()" class="text-gray-500 transition hover:text-gray-600">
+              <span class="sr-only">Dismiss popup</span>
+        
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </div>
-      </div></a>
-      @endforeach
-    </div>
+        </div>
+      </div>
+      <script>
+        //permet de rendre invisible l'alert
+          $alert=document.getElementById('alert');
+          function close_alert(){
+            $alert.style.display = 'none';
+          }
+        </script>
+      @endif
+        
+      
 
-   
+   {{-- ----------------------------------CONTENU + FILTRE-------------------     --}}
+        <section>
+            <div class="  mx-auto max-w-screen-xl  px-4  py-6 sm:px-4 lg:px-4 {{request()->routeIs('home') ?'' :'hidden'}}">
+              <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
+                <div class="lg:sticky lg:top-4">
+                  <details open class="overflow-hidden rounded border border-gray-200">
+                    <summary
+                      class="flex items-center justify-between text text-white px-5 py-3 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 lg:hidden"
+                    >
+                      <span class="text-sm font-medium"> Toggle Filters </span>
+          
+                      <svg
+                        class="h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"
+                        />
+                      </svg>
+                    </summary>
+          
+                    <form class="border-t border-gray-200 lg:border-t-0 ">
+                      <fieldset>
+                        <legend
+                          class="block w-full bg-gray-50 px-5 py-3 font-medium  text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
+                        >
+                        
+                        </legend>
+          
+                        <div class="space-y-2 px-5 py-6">
+                          <div class="flex items-center">
+                        
+                     <select name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
+                    @foreach($categories as $category)
+                        <option value="">{{$category->category ?? ''}}</option>
+                     @endforeach
+                        </select>  
 
- 
-  </x-slot>
-  
+                             
+                            
+                          </div>
+          
+                         
+                          <div class="pt-2">
+                            <button type="button" class="text-xs text-gray-500 underline">
+                              Reset category
+                            </button>
+                          </div>
+                        </div>
+                      </fieldset>
+        
+        
+                      <div>
+                        <fieldset>
+                          <legend
+                            class="block w-full bg-gray-50 px-5 py-3 font-medium  text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
+                          >
+                            Condition
+                          </legend>
+          
+                          <div class="space-y-2 px-5 py-6">
+                            <div class="flex items-center">
+                              <input
+                                id="3+"
+                                type="checkbox"
+                                name="age[3+]"
+                                class="h-5 w-5 rounded border-gray-300"
+                              />
+          
+                              <label for="new" class="ml-3 text-sm font-medium">
+                                New
+                              </label>
+                            </div>
+          
+                            <div class="flex items-center">
+                              <input
+                                id="good"
+                                type="checkbox"
+                                name="good"
+                                class="h-5 w-5 rounded border-gray-300"
+                              />
+          
+                              <label for="new" class="ml-3 text-sm font-medium">
+                                Good
+                              </label>
+                            </div>
+          
+                            <div class="flex items-center">
+                              <input
+                                id="12+"
+                                type="checkbox"
+                                name="age[12+]"
+                                class="h-5 w-5 rounded border-gray-300"
+                              />
+          
+                              <label for="12+" class="ml-3 text-sm font-medium">
+                                Used
+                              </label>
+                            </div>
+          
+                         
+                            <div class="pt-2">
+                              <button
+                                type="button"
+                                class="text-xs text-gray-500 underline"
+                              >
+                                Reset Age
+                              </button>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+          
+                      <div>
+                        <fieldset>
+                          <legend
+                            class="block w-full  px-5 py-3 text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
+                          >
+                            Price
+                          </legend>
+          
+                          <div class="space-y-2 px-5 py-6">
+                            <div class="flex items-center">
+                              <label for="new" class="ml-3 text-sm font-medium ">
+                                Max
+                              </label>
+                              <input
+                                id="location"
+                                type="number"
+                                name="location"
+                                class="h-6 w-20 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
+                              />
+                            </div>
+        
+                            <div class="">
+                              <div class="flex items-center">
+                                <label for="new" class="ml-3 text-sm font-medium ">
+                                  Min
+                                </label>
+                                <input
+                                  id="location"
+                                  type="number"
+                                  name="location"
+                                  class="h-6 w-20 ml-5 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
+                                />
+                              </div>
+          
+                           
+                            <div class="pt-2">
+                              <button
+                                type="button"
+                                class="text-xs text-gray-500 underline"
+                              >
+                                Reset location
+                              </button>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+        
+                      <div>
+                        <fieldset>
+                          <legend
+                            class="block w-full  px-5 py-3  text-white text-sm font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
+                          >
+                            Location
+                          </legend>
+          
+                          <div class="space-y-2 px-5 py-6">
+                            <div class="flex items-center">
+                              <label for="new" class="ml-3 text-sm font-medium ">
+                                Zip
+                              </label>
+                              <input
+                                id="location"
+                                type="number"
+                                name="location"
+                                class="h-6 w-24 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
+                              />
+                            </div>
+          
+                           
+                            <div class="pt-2">
+                              <button
+                                type="button"
+                                class="text-xs text-gray-500 underline"
+                              >
+                                Reset location
+                              </button>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+          
+                      <div
+                        class="flex justify-between border-t border-gray-200 px-5 py-3"
+                      >
+                        <button
+                          name="reset"
+                          type="button"
+                          class="rounded text-xs font-medium text-gray-600 underline"
+                        >
+                          Reset filters
+                        </button>
+          
+                        <button
+                          name="commit"
+                          type="button"
+                          class="rounded-md  p-2 hover:text-black hover:font-medium text-white bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"
+                        >
+                          Apply Filters
+                        </button>
+                      </div>
+                    </form>
+                  </details>
+                </div>
+                <div class="lg:col-span-3">
+                  
+{{-- ---------------------------------CARD POUR BOUCLER---------------------------------------- --}}
+<div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
 
-  </x-app-layout>
+  @foreach($ads as $ad)
+  <a href="{{$ad->id}}">
+  <div class="">
+    <div class="mt-8">
+      <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+          
+         
+
+           <div class="flex  justify-center">
+            <img class="object-cover w-full h-48" src="{{Storage::url($ad->image1)}}" alt="Modern building architecture">
+          </div>
+        
+          <div class="bg-white p-4 sm:p-6">
+            <time datetime="2022-10-10" class="block  text-xs text-gray-500">
+           {{$ad->created_at->toDateString()}}  {{--  affiche suelement la date malgré un timesatmp --}}
+           
+           
+            </time>
+           <div class="w-full flex justify-end">
+            <p class="mb-2 mt-2 text-center text-white w-24 rounded-sm  pl-1 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"> {{$ad->category_id}}</p>
+            </div>
+           
+      
+         <div class="grid grid-cols-2 grid-rows-1">
+          <div class="grid">
+              <h3  class="mt-0.5 text-lg font-medium  text-gray-900">
+                 {{-- {{$ad->creates_at}} --}}
+                 {{$ad->title}}
+              </h3>
+          </div>
+          <div class="grid justify-end">
+              <h3 class="mt-0.5 text-lg text-gray-900">
+                {{-- {{$ad['price']}} --}}
+                {{$ad->price}} €
+              </h3>
+          </div>
+          </div>
+            {{-- <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3 text-justify">
+              {{-- {{$ad['description']}} --}}
+              {{-- {{$ad->description}} --}}
+            {{-- </p> --}} 
+
+            
+            <div clas="grid">
+            <p class="mt-2 inline-block font-medium">Location</p>
+            <p class="mt-2 bg-gray-50 p-2 text-right w-full">{{$ad->location}} </p> {{-- {{$ad['zip']}}  {{$ad['location']}} --}}
+            </div>
+          
+          </div>
+        </article>
+      </div>
+  </div></a>
+  @endforeach
+</div>
+                         
+                  
+   {{-- -------------------------------------END CARD POUR BOUCLER ---------------------------------                --}}
+                
+                  
+                </div>
+                </div>
+              </div>
+            </div>   
+          </section>
+
+         
+          <script>
+            window.addEventListener('resize', () => {
+              const desktopScreen = window.innerWidth < 768
+              document.querySelector('details').open = !desktopScreen
+            })
+          </script>
+
+
+            
+    </body>
     
-{{--   
-</x-layouts.app> --}}
+</html>

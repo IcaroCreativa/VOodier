@@ -17,16 +17,12 @@ class UserPostController extends Controller
      */
     public function index()
     {
-        // $userID = Auth::user()->id; 
-        // $posts = DB::select('select * from post where user_id = ?', [$userID]);
-        // $categories=Category::get();
-        // // $posts=Post::where('user_id', $userID)->get();
-        // return view('dashboard',['posts'=>$posts,'categories'=>$categories]);
-
         $userID = Auth::user()->id; 
         $posts = DB::select('select * from post where user_id = ?', [$userID]);
-        $categories=Category::all();
-        return view('dashboard',compact('posts','categories'));
+        $categories=Category::get();
+        // $posts=Post::where('user_id', $userID)->get();
+        return view('dashboard',['posts'=>$posts,'categories'=>$categories]);
+       
         
     }
 
@@ -59,14 +55,9 @@ class UserPostController extends Controller
      */
     public function show(Request $request)
     {
-        // $post=Post::find($request->id);
-        // $categories=Category::get();
-        // return view('dashboard_update_ad',['post'=>$post,'categories'=>$categories]);
-
         $post=Post::find($request->id);
-        $categories=Category::all();
-        return view('dashboard_update_ad',compact('post','categories'));
-
+        $categories=Category::get();
+        return view('dashboard_update_ad',['post'=>$post,'categories'=>$categories]);
     }
 
     /**
@@ -87,30 +78,7 @@ class UserPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
-    {
-         //validation des données du formulaire
-         $request->validate(
-            [    // 'email' => ['email:rfc,dns'],
-                'title'=>['required','min:4'],
-                'description' =>['required', 'min:10'],
-                'img1' => 'required|mimes:png,jpg,jpeg|max:2048',
-                'price'=> 'required',
-                'location'=>'required',
-                'category'=>'required'
-            ]
-            );
-
-        $ad=Post::find($id);
-        $ad->title=$request->input('title');
-        $ad->price=$request->input('price');
-        $ad->description=$request->input('description');
-        $ad->location=$request->input('description');
-        $ad->category_id=$request->input('category');
-        $ad->save();
-        // $this->index()->with('status','AD modified');
-        return view('index')->with('status', "Your ad has been modified succesfully!");
-    }
+    
 
     /**
      * Remove the specified resource from storage.
