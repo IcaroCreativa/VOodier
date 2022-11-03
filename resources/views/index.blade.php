@@ -35,7 +35,7 @@
             
               <div class="bg-white p-4 sm:p-6">
                 <time datetime="2022-10-10" class="block  text-xs text-gray-500">
-               {{$ad->created_at->toDateString()}}  {{--  affiche suelement la date malgré un timesatmp --}}
+               {{$ad->created_at->toDateString()}}  {{--  affiche seulement la date malgré un timesatmp --}}
                
                
                 </time>

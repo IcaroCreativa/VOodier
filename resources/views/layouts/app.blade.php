@@ -25,6 +25,7 @@
         {{$blur ?? ''}}
         {{$dashboard ?? ''}}
         {{$message ?? ''}}
+        {{$index_filter ?? ''}}
 
     
 {{-- ----------------------alert---------------------------------------- --}}
@@ -96,28 +97,26 @@
                       </svg>
                     </summary>
           
-                    <form class="border-t border-gray-200 lg:border-t-0 ">
+                    <form class="border-t border-gray-200 lg:border-t-0" action="{{Route('filter_post')}}" method="post" >
+                      @csrf
+                      {{-- --- LISTE DEROULANTE CATEGORIES ----  --}}
                       <fieldset>
                         <legend
                           class="block w-full bg-gray-50 px-5 py-3 font-medium  text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
                         >
-                        
                         </legend>
           
                         <div class="space-y-2 px-5 py-6">
                           <div class="flex items-center">
-                        
-                     <select name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
-                    @foreach($categories as $category)
-                        <option value="">{{$category->category ?? ''}}</option>
-                     @endforeach
-                        </select>  
-
-                             
-                            
+                            {{-- {{dd($categories)}} --}}
+                              <select 
+                                name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
+                                @foreach($categories as $category)
+                                    <option value="{{$category->category ?? ''}}">{{$category->category ?? ''}}</option>
+                                @endforeach
+                              </select>                                
                           </div>
-          
-                         
+                                 
                           <div class="pt-2">
                             <button type="button" class="text-xs text-gray-500 underline">
                               Reset category
@@ -125,8 +124,8 @@
                           </div>
                         </div>
                       </fieldset>
-        
-        
+               
+                      {{-- --- CASES A COCHER CONDITION ----  --}}
                       <div>
                         <fieldset>
                           <legend
@@ -140,7 +139,7 @@
                               <input
                                 id="3+"
                                 type="checkbox"
-                                name="age[3+]"
+                                name=etat[0]
                                 class="h-5 w-5 rounded border-gray-300"
                               />
           
@@ -153,7 +152,7 @@
                               <input
                                 id="good"
                                 type="checkbox"
-                                name="good"
+                                name=etat[1]
                                 class="h-5 w-5 rounded border-gray-300"
                               />
           
@@ -166,7 +165,7 @@
                               <input
                                 id="12+"
                                 type="checkbox"
-                                name="age[12+]"
+                                name=etat[2]
                                 class="h-5 w-5 rounded border-gray-300"
                               />
           
@@ -188,6 +187,7 @@
                         </fieldset>
                       </div>
           
+                      {{-- --- ZONE DE SAISIE PRICE ----  --}}
                       <div>
                         <fieldset>
                           <legend
@@ -202,9 +202,9 @@
                                 Max
                               </label>
                               <input
-                                id="location"
+                                id="number"
                                 type="number"
-                                name="location"
+                                name="number_max"
                                 class="h-6 w-20 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
                               />
                             </div>
@@ -215,9 +215,9 @@
                                   Min
                                 </label>
                                 <input
-                                  id="location"
+                                  id="number"
                                   type="number"
-                                  name="location"
+                                  name="number_min"
                                   class="h-6 w-20 ml-5 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
                                 />
                               </div>
@@ -235,6 +235,7 @@
                         </fieldset>
                       </div>
         
+                      {{-- --- ZONE DE SAISIE LOCATION ----  --}}
                       <div>
                         <fieldset>
                           <legend
@@ -246,11 +247,11 @@
                           <div class="space-y-2 px-5 py-6">
                             <div class="flex items-center">
                               <label for="new" class="ml-3 text-sm font-medium ">
-                                Zip
+                                Ville
                               </label>
                               <input
                                 id="location"
-                                type="number"
+                                type="text"
                                 name="location"
                                 class="h-6 w-24 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
                               />
@@ -269,12 +270,13 @@
                         </fieldset>
                       </div>
           
+                      {{-- --- ANNULER / ENVOYER FILTRES ----  --}}
                       <div
                         class="flex justify-between border-t border-gray-200 px-5 py-3"
-                      >
+                        >
                         <button
                           name="reset"
-                          type="button"
+                          type="submit"
                           class="rounded text-xs font-medium text-gray-600 underline"
                         >
                           Reset filters
@@ -282,23 +284,27 @@
           
                         <button
                           name="commit"
-                          type="button"
+                          type="submit"
                           class="rounded-md  p-2 hover:text-black hover:font-medium text-white bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"
                         >
                           Apply Filters
                         </button>
                       </div>
+
                     </form>
+
                   </details>
                 </div>
+
                 <div class="lg:col-span-3">
         
-                   <div class="{{request()->routeIs('home') ?'' :'hidden'}}">
-              
+                   {{-- <div class="{{request()->routeIs('home', 'index_filter') ?'' :'hidden'}}"> --}}
+                    {{-- <div class="{{request()->routeIs('index_filter') ?'' :'hidden'}}"> --}}
+                    <div>
                     {{$slot ?? ''}}
                     
                    
-                  </div>
+                    </div>
                   
                 </div>
                 </div>
