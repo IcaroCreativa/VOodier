@@ -121,7 +121,7 @@ post
                   <strong
                     class="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600"
                   >
-                 
+                  
                   {{$ad->category_id}}
                   
                   </strong>
@@ -189,7 +189,7 @@ post
                             </label>
                           </fieldset>
 
-                      @if(isset($login[0]->login)==true)     {{-- Retrouve le login de la personne qui a poster l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
+                      @if(isset($login[0]->login)==true)     {{-- Retrouve le login de la personne qui a posté l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
                       {{ $login=$login[0]->login;}}     
                       @else
                         {{$login='voodies user';}}  

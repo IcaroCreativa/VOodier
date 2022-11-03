@@ -71,7 +71,7 @@
                                         <select name="category" id="category">
                                             <option class="text-red-600">{{$post->category_id}}</option>
                                              @foreach($categories as $category)
-                                            <option value="{{$category->category}}">{{$category->category}}</option>
+                                            <option value="{{$category->category_id}}">{{$category->category_id}}</option>
                                             @endforeach 
   
                                         </select>

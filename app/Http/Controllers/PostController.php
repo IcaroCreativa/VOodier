@@ -42,7 +42,6 @@ public function __construct()
         public function show(Post $ad)
         {  
             $login = DB::select('select login from users where id = ?', [$ad->user_id]);
-            
             // $ad=Post::findOrFail($ad); Pour utilser la fonction de cette façon enlever Post des arguments 
               return view('ad',['ad'=>$ad], ['login'=>$login]);
             }
@@ -74,9 +73,9 @@ public function __construct()
                 $Annonce -> category_id = $request -> category;
                 $Annonce -> description = $request -> type_ad;
                 $Annonce -> description = $request -> description;
-                $Annonce->user_id=Auth::user()->id;
+                $Annonce -> user_id=Auth::user()->id;
                 $Annonce -> price = $request -> price;
-                $Annonce->condition_id=$request->condition;
+                $Annonce -> condition_id=$request->condition;
                 $Annonce -> location = $request -> location;
         
                 /* ----- traitement de l'image ---- */
@@ -107,9 +106,10 @@ public function __construct()
                 $Annonce -> image5 = $request->file('img5')->storeAs('images',$filename5,'public');
                 
                 }
+
                 /* ----- envoyer dans la BDD = requête SQL INSERT INTO ads() VALUES() ---- */ 
                 $Annonce -> save();
-                //session()->flash('status', 'YEees yo have created a new ad!'); // creation du meesgae d'alert qui se verra dans la page index
+                //session()->flash('status', 'YEees yo have created a new ad!'); // creation du message d'alert qui se verra dans la page index
                 /* Renvoyer ensuite sur la page index par le biais de la route
                 pour afficher les données Route::get('/ads', [AdsController::class, 'index']); */
                 return Redirect('/index')->with('status', "Your ad has been created!");
@@ -126,37 +126,69 @@ public function __construct()
         $id->delete();
         return redirect('index')->with('status', 'Your ad has been delete');
     }
+            
+
+    // ----- AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LES CATÉGORIES -----------
+
+  public function filtre(Request $request){
     
+    // dd($request);
     
-    public function update(Request $request,$id)
-    {
-         
-      
-      // //validation des données du formulaire
-      //    $request->validate(
-      //       [    
-      //           'title'=>['required','min:4'],
-      //           'description' =>['required', 'min:10'],
-      //           'img1' => 'required|mimes:png,jpg,jpeg|max:2048',
-      //           'price'=> 'required',
-      //           'location'=>'required',
-      //           'category'=>'required'
-      //       ]
-      //       );
+    // SELECT CONDITION
+    // $query = Post::whereIn('condition_id', "clés des cases cochées")->get();
+    // dd ($request['etat']);
+    // $keys=array_keys($request['etat']);
+    // dd($keys);
+    // $query = Post::whereIn('condition_id', $keys)->get();
+    // return view('index_filter',compact ('query'));  
 
-        $ad=Post::find($id);
-        $ad->title=$request->input('title');
-        $ad->price=$request->input('price');
-        $ad->description=$request->input('description');
-        $ad->location=$request->input('description');
-        $ad->category_id=$request->input('category');
-        $ad->save();
-        // ->with('status','AD modified');
-        return redirect('index');
-        
-    }
+    // SELECT CATEGORIE
+    // $query = Post::where('category_id', $request->category)->get();
+    // dd($query);
+    // return view('index_filter',compact ('query'));  
+
+    // SELECT LOCATION OK OK OK
+    // SELECT * FROM post WHERE location=?;
+    // $query = Post::where('location', $request->location)->get();
+    // return view('index_filter',compact ('query'));    
+
+    // SELECT PRICE OK OK OK
+    // SELECT * FROM post WHERE price BETWEEN 'number_min' AND 'number_max'
+    // $query = Post::whereBetween('price', [$request->number_min,$request->number_max])->get();
+    // return view('index_filter',compact ('query'));  
+
+    // FONCTIONNE SI TOUS LES FILTRES SONT REMPLIS
+
+      if (!empty ($request->category)){
+        $query_categorie = where('category_id', $request->category);
+      }
+      else {
+        $query_categorie = where('category_id','category_id');
+      };
 
 
+      if (!empty ($request->etat)){
+        $keys=array_keys($request['etat']);
+        $query_etat = whereIn('condition_id', $keys);
+      }
+      else {
+        $query_etat = where('condition_id','condition_id');
+      };
 
+
+    $query = Post::$query_categorie
+      ->$query_etat
+      ->get();
+
+
+    // $query = Post::whereIn('condition_id', $keys)
+    //   ->where('category_id', $request->category)
+    //   ->where('location', $request->location)
+    //   ->whereBetween('price', [$request->number_min,$request->number_max])
+    //   ->get();
+    return view('index_filter',compact ('query')); 
+
+
+}
 
 }
