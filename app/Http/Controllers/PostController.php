@@ -32,7 +32,7 @@ public function __construct()
 }
 
         public function index()
-        {  
+        { 
           $cities=City::get();
           $posts=Post::get();
           $categories=Category::get();
@@ -128,9 +128,11 @@ public function __construct()
         $id->delete();
         return redirect('index')->with('status', 'Your ad has been delete');
     }
-            
-
-    // ----- AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LES CATÉGORIES -----------
+  
+    
+  /* ---------------------------------------------------------------------------*/
+  /* ----- AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LES CATÉGORIES ----------*/
+  /* ---------------------------------------------------------------------------*/
 
   public function filtre(Request $request){
     
@@ -168,7 +170,6 @@ public function __construct()
       }
       else
       {
-        // $query_cat = "";
         return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
       }
 
@@ -213,13 +214,51 @@ public function __construct()
     /* --------------------- REQUÊTE GLOBALE ----------------------
     /  AVEC CONCATENATION DES DIFFERENTES REQUÊTES DE CHAQUE FILTRE */
 
-
-        $query = DB::table('post')
+        $query= DB::table('post')
         ->whereRaw($query_cat .$query_etat .$query_price_min .$query_price_max .$query_lieu)
         ->orderBy('title')
         ->get();
-        return view('index_filter',compact ('query')); 
-
+        // return view('index',compact ('ads')); 
+        $cities=City::get();
+        $categories=Category::get();
+        return view('index',["ads"=>$query ,'categories'=>$categories,'cities'=>$cities]);
   }
+
+
+/* ---------------------------------------------------------------------------*/
+/* ------------ AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LE ---------------*/
+/* ----------------------- MOTEUR DE RECHERCHE -------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+// public function search (Request $request)
+
+
+// // Produits à afficher selon le mot saisi dans la barre de recherche
+// $words = "";
+// if(isset($_POST['submit']) && !empty($_POST['keywords']))
+// {
+//     // Récupérer tous les mots dans un array
+//     $words = explode(" ", trim($_POST['keywords']));
+//     for ($i=0; $i<count($words);$i++)
+//     {
+//         /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
+//         $kw[$i] = "name like '%".$words[$i]."%'";
+//         /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère
+//         séparé par des OR */
+//         $sql = 'SELECT * FROM products WHERE '.implode(" OR ", $kw);
+//         // $sql = "SELECT * FROM products WHERE " .implode(" OR ", $kw) ."ORDER BY 'name' DESC LIMIT :premier, :parpage";
+//         $query = $pdo -> prepare($sql);
+
+//         $query->bindValue(':premier', $premier, PDO::PARAM_INT);
+//         $query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+
+//         $query -> execute();
+//     }
+//     /* si aucun mot saisi dans la barre de recherche n'est trouvé*/
+//     if (($query -> rowcount()) == 0)
+//     {                
+//       $_POST['keywords'] = "Sorry ! no product found. Try search again.";
+
+
 
 }

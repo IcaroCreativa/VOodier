@@ -16,6 +16,7 @@
       </div>
       @endif
 
+{{-- {{dd($ads)}} --}}
 @foreach($ads as $ad)
 <a href="{{$ad->id}}"> {{--  //route vers l'affichage du post --}}
       <div class="">
@@ -35,15 +36,16 @@
             
               <div class="bg-white p-4 sm:p-6">
                 <time datetime="2022-10-10" class="block  text-xs text-gray-500">
-               {{$ad->created_at->toDateString()}}  {{--  affiche seulement la date malgré un timesatmp --}}
-               
-               
+                  {{$ad->created_at}} 
+               {{-- {{$ad->created_at->toDateString()}}   --}}
+               {{--  affiche seulement la date malgré un timesatmp --}}
+              
                 </time>
                <div class="w-full flex justify-end">
                 <p class="mb-2 mt-2 text-center text-white w-24 rounded-sm  pl-1 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500"> {{$ad->category_id}}</p>
                 </div>
                
-          
+         
              <div class="grid grid-cols-2 grid-rows-1">
               <div class="grid">
                   <h3  class="mt-0.5 text-lg font-medium  text-gray-900">
@@ -68,7 +70,7 @@
                 <p class="mt-2 inline-block font-medium">Location</p>
                 <p class="mt-2 bg-gray-50 p-2 text-right w-full">{{$ad->location}} </p> {{-- {{$ad['zip']}}  {{$ad['location']}} --}}
                 </div>
-              
+               
               </div>
             </article>
           </div>
@@ -76,7 +78,7 @@
     </a>
       @endforeach
 </div>
-
+{{-- {{dd()}} --}}
 
   </x-app-layout>
     

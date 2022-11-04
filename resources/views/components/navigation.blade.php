@@ -26,6 +26,7 @@
               class="h-10 rounded-lg  border-2 w-60 border-gray-400 pr-10 pl-4 text-base placeholder-gray-300 focus:z-10"
               placeholder="Search..."
               type="text"
+              name="keywords"
             />
   
             <button
