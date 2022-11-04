@@ -1,8 +1,8 @@
 je suis dans la view filter 
-
+@include('layouts/app')
 {{-- {{dd($query)}} --}}
 
-@foreach($query as $items)
+{{-- @foreach($query as $items)
 <table>
 
 <ol>
@@ -19,29 +19,25 @@ je suis dans la view filter
   </li>
 </ol>
 
-@endforeach
+@endforeach --}}
 
 
-{{dd()}}
+{{-- {{dd()}} --}}
 
 
 
 {{-- <x-layouts.app title="" > --}}
 
-    
-  <x-app-layout >
   
+  {{-- <x-app-layout > --}}
 
-    <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
+<section class="  mx-auto max-w-screen-xl  px-4  py-6 sm:px-4 lg:px-4 ">
+  <div class=grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start> 
+    <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-1 gap-6 ">
     
-        
-          @if($query->count()==0)
-          <div class="mx-auto mt-20 p-10 w-3/4 grid col-span-3  grid rows-span-2 rounded-lg shadow-lg bg-slate-100 justify-items-center"> 
-            <img src="{{Storage::url('\images\advertising.png')}}" alt="favicon ad">
-            <h1 class="text-slate-700 md:text-3xl text-center text-justify ">Wow, it seems there are no ads. Connect and send us your first ad!!</h1> 
-          </div>
-          @endif
-    
+    <div class="grid grid-rows-1"></div>
+
+      <div class=grid grid-cols-1 md:grid md:grid-cols-2 md:grid-rows-1 gap-6 >
     @foreach($query as $ad)
     <a href="{{$ad->id}}"> {{--  //route vers l'affichage du post --}}
           <div class="">
@@ -62,7 +58,7 @@ je suis dans la view filter
                   <div class="bg-white p-4 sm:p-6">
                     {{-- <time datetime="2022-10-10" class="block  text-xs text-gray-500">
                    {{$ad->created_at->toDateString()}}   --}}
-                   {{--  affiche seulement la date malgré un timesatmp --}}        
+                   {{--  affiche seulement la date malgré un timesatmp --}}
                     {{-- </time> --}}
 
                    <div class="w-full flex justify-end">
@@ -103,8 +99,10 @@ je suis dans la view filter
           @endforeach
     </div>
     
-    
-      </x-app-layout>
+  </div>
+</div>
+</section>  
+      {{-- </x-app-layout> --}}
         
-        
-    {{--</x-layouts.app> --}}
+    {{--   
+    </x-layouts.app> --}}

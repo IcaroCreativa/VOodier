@@ -103,7 +103,7 @@
                       <fieldset>
                         <legend
                           class="block w-full bg-gray-50 px-5 py-3 font-medium  text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
-                        >
+                        >Category
                         </legend>
           
                         <div class="space-y-2 px-5 py-6">
@@ -111,6 +111,7 @@
                             {{-- {{dd($categories)}} --}}
                               <select 
                                 name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
+                                <option  value="">Select category</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->category ?? ''}}">{{$category->category ?? ''}}</option>
                                 @endforeach
@@ -137,9 +138,9 @@
                           <div class="space-y-2 px-5 py-6">
                             <div class="flex items-center">
                               <input
-                                id="3+"
+                                id="new"
                                 type="checkbox"
-                                name=etat[0]
+                                name=etat[2]
                                 class="h-5 w-5 rounded border-gray-300"
                               />
           
@@ -165,7 +166,7 @@
                               <input
                                 id="12+"
                                 type="checkbox"
-                                name=etat[2]
+                                name=etat[0]
                                 class="h-5 w-5 rounded border-gray-300"
                               />
           
@@ -207,6 +208,7 @@
                                 name="number_max"
                                 class="h-6 w-20 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
                               />
+                              @error('number_max')<small class="text-red-600 ">{{$message}}</small>@enderror
                             </div>
         
                             <div class="">
@@ -219,7 +221,7 @@
                                   type="number"
                                   name="number_min"
                                   class="h-6 w-20 ml-5 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
-                                />
+                                />@error('number_min')<small class="text-red-600 ">{{$message}}</small>@enderror
                               </div>
           
                            
@@ -253,8 +255,10 @@
                                 id="location"
                                 type="text"
                                 name="location"
+                                placeholder="select city"
                                 class="h-6 w-24 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
                               />
+                              @error('location')<small class="text-red-600 ">{{$message}}</small>@enderror
                             </div>
           
                            
