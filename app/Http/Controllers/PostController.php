@@ -54,6 +54,8 @@ public function __construct()
   
         public function create(Request $request)
             { 
+
+              
               //validation des données du formulaire
               $request->validate(
                 [    // 'email' => ['email:rfc,dns'],
@@ -77,7 +79,7 @@ public function __construct()
                 $Annonce = new Post();
                 $Annonce -> title = $request -> title;
                 $Annonce -> category_id = $request -> category;
-                $Annonce -> description = $request -> type_ad;
+                $Annonce -> type_ad = $request -> type_ad;
                 $Annonce -> description = $request -> description;
                 $Annonce -> user_id=Auth::user()->id;
                 $Annonce -> price = $request -> price;
@@ -129,8 +131,9 @@ public function __construct()
      */
     public function destroy($id)
     {   $id=Post::find($id);
+        $title=$id->title;
         $id->delete();
-        return redirect('index')->with('status', 'Your ad has been delete');
+        return redirect('index')->with('status', "Yor ad: $title has been delete!");
     }
             
 

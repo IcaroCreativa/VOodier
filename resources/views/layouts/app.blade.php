@@ -9,6 +9,8 @@
         @vite('resources/css/app.css')
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
 
        
        
@@ -103,7 +105,7 @@
                       <fieldset>
                         <legend
                           class="block w-full bg-gray-50 px-5 py-3 font-medium  text-sm text-white font-medium bg-gradient-to-r from-red-800 via-red-600 to-red-500"
-                        >
+                        > Category
                         </legend>
           
                         <div class="space-y-2 px-5 py-6">
@@ -111,8 +113,9 @@
                             {{-- {{dd($categories)}} --}}
                               <select 
                                 name="category" id="category" class="w-36 border border-gray-400 rounded-sm" >
+                                <option  value="">Select</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->category ?? ''}}">{{$category->category ?? ''}}</option>
+                                    <option  value="{{$category->category ?? ''}}">{{$category->category ?? ''}}</option>
                                 @endforeach
                               </select>                                
                           </div>
@@ -249,7 +252,7 @@
                               <label for="new" class="ml-3 text-sm font-medium ">
                                 Ville
                               </label>
-                              <input
+                              <input placeholder="Select city"
                                 id="location"
                                 type="text"
                                 name="location"
