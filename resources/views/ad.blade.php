@@ -20,7 +20,7 @@ post
   
 
   <x-slot name="about">
-    
+ 
     <div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8 ">
       <div class=" mx-auto max-w-lg  ">
         <section class="shadow-2xl ">
@@ -188,15 +188,23 @@ post
                               </span>
                             </label>
                           </fieldset>
-
-                      @if(isset($login[0]->login)==true)     {{-- Retrouve le login de la personne qui a posté l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
+{{-- Retrouve le login de la personne qui a posté l'annonce s'il n'existe pas affiche une valeur ar defaut --}}
+                      {{-- @if(isset($login[0]->login)==true)     
                       {{ $login=$login[0]->login;}}     
                       @else
                         {{$login='voodies user';}}  
-                      @endif
-                          
+                      @endif --}}
+
+                      <?php
+                      if(isset($login[0]->login)==true)     
+                      {{ $login=$login[0]->login;}}     
+                      else
+                        {{$login='voodies user';}}  
+                      ?>
+                      
                       <p class="mt-2 text-base text-blue-700 font-medium">{{ucfirst(strtolower($login))}}</p>
-          
+                      
+
                       <div class="mt-2 -ml-0.5 flex">
                        <p class="font-medium mb-2 text-slate-600">Description</p>
                        
@@ -216,8 +224,8 @@ post
                       </div>
                     <!-- ---END DESCRIPTION----- -->
     
-                    <fieldset class="mt-4 space-x-6">
-                      <legend class="mb-1 py-4 text font-medium text-slate-600">Condition</legend>
+                    <fieldset class="mt-2 space-x-6">
+                      <legend class=" py-2 text font-medium text-slate-600">Condition</legend>
                         
                       <?php  
                           $newcondition="";
@@ -295,12 +303,10 @@ post
                           </label>
     
                           <!-- ----Bouton contact ----- -->
-                           <div class="ml-16 mt-8  md:mt-8 md:mx-10">
-                            <button type="submit" class="md:w-28 p-2 h-12 w-32 rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white ">Contact</button>
-                        </div> 
-                        <form method="POST" action="{{route('contact')}}">
+                          
+                        <form method="POST" action="{{route('contact')}}" class="mt-8 ml-10 md:-ml-4">
                           @csrf
-                      <button type="submit" class="md:w-28 p-2 h-12 w-32 rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white " name="user_id" value="{{$ad->user_id}}">Contact</button>
+                      <button type="submit" class="md:w-48 w-52 h-8  rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white " name="user_id" value="{{$ad->user_id}}">Contact</button>
                       <input type="text" class="hidden" value="{{$ad->id}}" name="post_id">
                   </form>
 
@@ -347,9 +353,20 @@ post
                 
   </div>
   {{-- ------------MAP ----------------- --}}
-             <div class=" grid col-span-2 p-2">
-                <iframe class="h-72 w-full rounded-md " src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41999.46370536094!2d2.31201580391723!3d48.85884954753422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis!5e0!3m2!1sfr!2sfr!4v1666965172762!5m2!1sfr!2sfr"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>          
+  
+  @if(!empty($location))
+<?php
+    foreach($location as $geolocation){
+      $latitude=$geolocation->gps_lat;
+      $longitude=$geolocation->gps_lng;
+     }
+?>
+  @endif
+             <div class=" grid col-span-2 p-2 mt-2">
+              <label for="map" class="mt-4 font-medium text-slate-500">City: {{$ad->location}}</label>
+                <iframe id=map class="h-72 w-full rounded-md mt-2 " src="https://www.google.com/maps/search/?api=1&query={{$latitude}},{{$longitude}}"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                
+              </div>          
         </section>
          
       </div>

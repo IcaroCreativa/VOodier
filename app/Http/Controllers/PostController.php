@@ -42,8 +42,10 @@ public function __construct()
         public function show(Post $ad)
         {  
             $login = DB::select('select login from users where id = ?', [$ad->user_id]);
+            $location= DB::select('select * from cities where name = ?', [$ad->location]);
             // $ad=Post::findOrFail($ad); Pour utilser la fonction de cette façon enlever Post des arguments 
-              return view('ad',['ad'=>$ad], ['login'=>$login]);
+            
+              return view('ad',['ad'=>$ad,'login'=>$login,'location'=>$location]);
             }
   
         public function create(Request $request)
@@ -159,26 +161,26 @@ public function __construct()
 
     // FONCTIONNE SI TOUS LES FILTRES SONT REMPLIS
 
-      if (!empty ($request->category)){
-        $query_categorie = where('category_id', $request->category);
-      }
-      else {
-        $query_categorie = where('category_id','category_id');
-      };
+    //   if (!empty ($request->category)){
+    //     $query_categorie = where('category_id', $request->category);
+    //   }
+    //   else {
+    //     $query_categorie = where('category_id','category_id');
+    //   };
 
 
-      if (!empty ($request->etat)){
-        $keys=array_keys($request['etat']);
-        $query_etat = whereIn('condition_id', $keys);
-      }
-      else {
-        $query_etat = where('condition_id','condition_id');
-      };
+    //   if (!empty ($request->etat)){
+    //     $keys=array_keys($request['etat']);
+    //     $query_etat = whereIn('condition_id', $keys);
+    //   }
+    //   else {
+    //     $query_etat = where('condition_id','condition_id');
+    //   };
 
 
-    $query = Post::$query_categorie
-      ->$query_etat
-      ->get();
+    // $query = Post::$query_categorie
+    //   ->$query_etat
+    //   ->get();
 
 
     // $query = Post::whereIn('condition_id', $keys)
