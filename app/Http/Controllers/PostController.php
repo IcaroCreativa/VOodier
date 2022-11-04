@@ -32,7 +32,7 @@ public function __construct()
 }
 
         public function index()
-        {  
+        { 
           $cities=City::get();
           $posts=Post::get();
           $categories=Category::get();
@@ -132,69 +132,137 @@ public function __construct()
         $id->delete();
         return redirect('index')->with('status', 'Your ad has been delete');
     }
-            
-
-    // ----- AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LES CATÉGORIES -----------
+  
+    
+  /* ---------------------------------------------------------------------------*/
+  /* ----- AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LES CATÉGORIES ----------*/
+  /* ---------------------------------------------------------------------------*/
 
   public function filtre(Request $request){
     
     // dd($request);
-    
-    // SELECT CONDITION
-    // $query = Post::whereIn('condition_id', "clés des cases cochées")->get();
-    // dd ($request['etat']);
-    // $keys=array_keys($request['etat']);
-    // dd($keys);
-    // $query = Post::whereIn('condition_id', $keys)->get();
-    // return view('index_filter',compact ('query'));  
 
-    // SELECT CATEGORIE
-    // $query = Post::where('category_id', $request->category)->get();
-    // dd($query);
-    // return view('index_filter',compact ('query'));  
+    if ($request->category==null && $request->number_max==null && $request->number_min==null && $request->location==null)
+    {
+      return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
+    }
 
-    // SELECT LOCATION OK OK OK
-    // SELECT * FROM post WHERE location=?;
-    // $query = Post::where('location', $request->location)->get();
-    // return view('index_filter',compact ('query'));    
-
-    // SELECT PRICE OK OK OK
-    // SELECT * FROM post WHERE price BETWEEN 'number_min' AND 'number_max'
-    // $query = Post::whereBetween('price', [$request->number_min,$request->number_max])->get();
-    // return view('index_filter',compact ('query'));  
-
-    // FONCTIONNE SI TOUS LES FILTRES SONT REMPLIS
-
-    //   if (!empty ($request->category)){
-    //     $query_categorie = where('category_id', $request->category);
-    //   }
-    //   else {
-    //     $query_categorie = where('category_id','category_id');
-    //   };
+    if(isset($request->number_min) && isset($request->number_max)){
+      if(($request->number_min) >= ($request->number_max)){
+        $x = $request->number_max;
+        $request->number_max = $request->number_min;
+        $request->number_min = $x;
+      }
+      elseif(($request->number_max) <= ($request->number_min)){
+        $x = $request->number_min;
+        $request->number_min = $request->number_max;
+        $request->number_max = $x;
+      }
+    };
 
 
-    //   if (!empty ($request->etat)){
-    //     $keys=array_keys($request['etat']);
-    //     $query_etat = whereIn('condition_id', $keys);
-    //   }
-    //   else {
-    //     $query_etat = where('condition_id','condition_id');
-    //   };
+    /* -- --- VERIFIER SI LES VARIABLES SONT VIDES OU PAS -- ---
+    /  ET préparer la requête pour chacun des filtres  */
+
+      // Ce sont les mêmes écritures : 
+      // ->where('location', $request->location)
+      // ->whereRaw("location  = ?",[$request->location])
+
+      // dd($request->category);
+      if (!empty ($request->category)){
+        $query_cat = "category_id = '$request->category'";
+      }
+      else
+      {
+        return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
+      }
+
+      if (!empty ($request->etat) || ($request->etat)!=null){
+        // dd($request->etat);
+        // récupérer les clés dans la variable $request->etat qui correspondent
+        // à l'état du produit : used=0 good=1 new=2 
+        // implode = transformer les clés du tableau dans une chaîne de caractère
+        $keys=implode("','",array_keys($request['etat']));
+        // dd($keys);
+        $query_etat = "AND condition_id  IN ('$keys')";
+      }
+      else
+      {
+        $query_etat = "";
+      }
+
+      if (!empty ($request->number_min)){
+        $query_price_min = "AND price >= '$request->number_min'";
+      }
+      else
+      {
+        $query_price_min = "";
+      }
+
+      if (!empty ($request->number_max)){
+        $query_price_max = "AND price <= '$request->number_max'";
+      }
+      else
+      {
+        $query_price_max = "";
+      }
+
+      if (!empty ($request->location)){
+        $query_lieu = "AND location = '$request->location'";
+      }
+      else
+      {
+        $query_lieu = "";
+      }
+
+    /* --------------------- REQUÊTE GLOBALE ----------------------
+    /  AVEC CONCATENATION DES DIFFERENTES REQUÊTES DE CHAQUE FILTRE */
+
+        $query= DB::table('post')
+        ->whereRaw($query_cat .$query_etat .$query_price_min .$query_price_max .$query_lieu)
+        ->orderBy('title')
+        ->get();
+        // return view('index',compact ('ads')); 
+        $cities=City::get();
+        $categories=Category::get();
+        return view('index',["ads"=>$query ,'categories'=>$categories,'cities'=>$cities]);
+  }
 
 
-    // $query = Post::$query_categorie
-    //   ->$query_etat
-    //   ->get();
+/* ---------------------------------------------------------------------------*/
+/* ------------ AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LE ---------------*/
+/* ----------------------- MOTEUR DE RECHERCHE -------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+// public function search (Request $request)
 
 
-    // $query = Post::whereIn('condition_id', $keys)
-    //   ->where('category_id', $request->category)
-    //   ->where('location', $request->location)
-    //   ->whereBetween('price', [$request->number_min,$request->number_max])
-    //   ->get();
-    return view('index_filter',compact ('query')); 
+// // Produits à afficher selon le mot saisi dans la barre de recherche
+// $words = "";
+// if(isset($_POST['submit']) && !empty($_POST['keywords']))
+// {
+//     // Récupérer tous les mots dans un array
+//     $words = explode(" ", trim($_POST['keywords']));
+//     for ($i=0; $i<count($words);$i++)
+//     {
+//         /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
+//         $kw[$i] = "name like '%".$words[$i]."%'";
+//         /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère
+//         séparé par des OR */
+//         $sql = 'SELECT * FROM products WHERE '.implode(" OR ", $kw);
+//         // $sql = "SELECT * FROM products WHERE " .implode(" OR ", $kw) ."ORDER BY 'name' DESC LIMIT :premier, :parpage";
+//         $query = $pdo -> prepare($sql);
+
+//         $query->bindValue(':premier', $premier, PDO::PARAM_INT);
+//         $query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+
+//         $query -> execute();
+//     }
+//     /* si aucun mot saisi dans la barre de recherche n'est trouvé*/
+//     if (($query -> rowcount()) == 0)
+//     {                
+//       $_POST['keywords'] = "Sorry ! no product found. Try search again.";
 
 
-}
 
 }
