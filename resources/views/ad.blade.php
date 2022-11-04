@@ -354,19 +354,15 @@ post
   </div>
   {{-- ------------MAP ----------------- --}}
   
-  @if(!empty($location))
-<?php
-    foreach($location as $geolocation){
-      $latitude=$geolocation->gps_lat;
-      $longitude=$geolocation->gps_lng;
-     }
-?>
-  @endif
+
              <div class=" grid col-span-2 p-2 mt-2">
               <label for="map" class="mt-4 font-medium text-slate-500">City: {{$ad->location}}</label>
-                <iframe id=map class="h-72 w-full rounded-md mt-2 " src="https://www.google.com/maps/search/?api=1&query={{$latitude}},{{$longitude}}"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                
-              </div>          
+              <div class="gmap_canvas"><iframe class="h-72 w-full" id="gmap_canvas" src="https://maps.google.com/maps?q={{$ad->location}}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
+
+</div>
+
+
+
         </section>
          
       </div>

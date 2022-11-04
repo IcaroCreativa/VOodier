@@ -41,11 +41,15 @@ public function __construct()
 
         public function show(Post $ad)
         {  
-            $login = DB::select('select login from users where id = ?', [$ad->user_id]);
-            $location= DB::select('select * from cities where name = ?', [$ad->location]);
+            // $login = DB::select('select login from users where id = ?', [$ad->user_id]); Non utilisé mais fonctinonnel
+            // $location= DB::select('select * from cities where name = ?', [$ad->location]);
+            // return view('ad',['ad'=>$ad,'login'=>$login,'location'=>$location]);
             // $ad=Post::findOrFail($ad); Pour utilser la fonction de cette façon enlever Post des arguments 
             
-              return view('ad',['ad'=>$ad,'login'=>$login,'location'=>$location]);
+            
+            $login = DB::select('select login from users where id = ?', [$ad->user_id]);
+              return view('ad',['ad'=>$ad,'login'=>$login]);
+            
             }
   
         public function create(Request $request)
