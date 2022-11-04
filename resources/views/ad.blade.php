@@ -142,13 +142,13 @@ post
                                 case 'offer':
                                     $offer="checked";
                                     break;
-                                case 2:
+                                case 'request':
                                     $request="checked";
                                     break;
                                 default:
                                     $offer="";
                                     $request="checked";
-                                    
+              
                             }
                      ?>
   
@@ -157,7 +157,8 @@ post
                           <div class="-m-0.5 flex flex-wrap ">
                             <label for="new" class="cursor-pointer p-0.5 ">
                               <input disabled
-                                {{$request}} 
+                                {{$request}}  
+                                
                                 type="radio"
                                 name="new"
                                 id="new"
@@ -173,11 +174,11 @@ post
             
                             <label for="good" class="cursor-pointer p-0.5 ">
                               <input
-                              {{$offer}}
                                 disabled
+                                {{$offer}}
                                 type="radio"
-                                name="good"
-                                id="good"
+                                name="offer"
+                                id="offer"
                                 class="peer sr-only "
                               />
             
@@ -233,13 +234,13 @@ post
                           $usedcondition="";
 
                           switch ($ad->condition_id) {
-                              case 1:
+                              case 2:
                                   $newcondition="checked";
                                   break;
-                              case 2:
+                              case 1:
                                   $goodcondition="checked";
                                   break;
-                              case 3:
+                              case 0:
                                   $usedcondition="checked";
                                   break;
                               default:

@@ -38,29 +38,89 @@
 
 
 
-                                    <img alt="image1 ad" src='camera.png'
-                                        class="   aspect-squarew-full rounded-xl object-cover" />
+                                    {{-- ------------img1------------------------- --}}
+                    <?php 
+                    $image1='/images/camera.png';
+                    if(isset($post->image1)){
+                      $image1=$post->image1;
+                      $image1=Storage::url($post->image1);
+                      
+                    }
+                    
+                    ?>
+    
+                    <img
+                    alt="image1 ad"
+                    src='{{$image1}}'
+                    class="   aspect-squarew-full rounded-xl object-cover"
+                  />
+          
+                  <div class="grid grid-cols-2 gap-4 lg:mt-4">
+                    
+                    {{-- ------------img2------------------------- --}}
+                    <?php 
 
-                                    <div class="grid grid-cols-2 gap-4 lg:mt-4">
+                    $image2=URL::asset('/images/camera.png');
+                    if(isset($post->image2)){
+                      $image2=$post->image2;
+                      $image2=Storage::url($post->image2);
+                    }
+                     
+                    ?>
+                    
+                    
+                    <img
+                      alt='image2 ad'
+                      src='{{$image2}}'
+                      class="aspect-square w-full rounded-xl object-cover"
+                    />
 
+                  {{-- ------------img3------------------------- --}}
 
+                    <?php 
+                    $image3=URL::asset('/images/camera.png');
+                    if(isset($post->image3)){
+                      $image3=$post->image3;
+                      $image3=Storage::url($post->image3);
+                    }
+                     
+                    ?>
+                  
+                    <img
+                      alt='image3 ad'
+                      src='{{$image3}}'
+                      class="aspect-square w-full rounded-xl object-cover"
+                    />
 
-                                        <img alt='image2 ad' src='camera.png'
-                                            class="aspect-square w-full rounded-xl object-cover" />
-
-
-
-                                        <img alt='image3 ad' src='camera.png'
-                                            class="aspect-square w-full rounded-xl object-cover" />
-
-                                        <img alt='image4 ad' src='camera.png'
-                                            class="aspect-square w-full rounded-xl object-cover" />
-
-
-
-                                        <img alt="imgage5 ad" src='camera.png'
-                                            class="aspect-square w-full rounded-xl object-cover" />
-
+                 {{-- ------------img4------------------------- --}}
+                    <?php 
+                    $image4=URL::asset('/images/camera.png');
+                    if(isset($post->image4)){
+                      $image4=$post->image4;
+                      $image4=Storage::url($post->image4);
+                    }
+                    
+                    ?>
+                    <img
+                      alt='image4 ad'
+                      src='{{$image4}}'
+                      class="aspect-square w-full rounded-xl object-cover"
+                    />
+                   
+                   {{-- ------------img5------------------------- --}}
+                    <?php 
+                    $image5=URL::asset('/images/camera.png');
+                    if(isset($post->image5)){
+                      $image5=$post->image5;
+                      $image5=Storage::url($post->image5);
+                    }
+                    ?>
+                    
+                    <img
+                      alt="imgage5 ad"
+                      src='{{$image5}}'
+                      class="aspect-square w-full rounded-xl object-cover"
+                    />
                                     </div>
                                 </div>
 
@@ -84,7 +144,7 @@
                                             <label for="tile" class="text-base w-20  font-medium text-slate-600" >
                                                     Title
                                             </label>
-                                            <input required type="text" id="title" name="title" value={{$post->title}} class="border rounded-sm border-slate-400">
+                                            <input  type="text" id="title" name="title" value={{$post->title}} class="border rounded-sm border-slate-400">
                                             </div>
 
                                             <fieldset class="mt-4 space-x-6">
@@ -97,7 +157,7 @@
                                                     case 'offer':
                                                         $offer="checked";
                                                         break;
-                                                    case 2:
+                                                    case 'request':
                                                         $request="checked";
                                                         break;
                                                     default:
@@ -110,9 +170,9 @@
 
                                                 <div class="flow-root ">
                                                     <div class="-m-0.5 flex flex-wrap ">
-                                                        <label for="new" class="cursor-pointer p-0.5 ">
-                                                            <input  {{$request}} type="radio" name="new"
-                                                                id="new" class="peer sr-only " />
+                                                        <label for="request" class="cursor-pointer p-0.5 ">
+                                                            <input  {{$request}} type="radio" name="type_ad" value="request"
+                                                                id="request" class="peer sr-only " />
 
                                                             <span
                                                                 class="group inline-flex h-6 w-16  items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-lime-500 peer-checked:text-white">
@@ -120,9 +180,9 @@
                                                             </span>
                                                         </label>
 
-                                                        <label for="good" class="cursor-pointer p-0.5 ">
-                                                            <input {{$offer}}  type="radio" name="good"
-                                                                id="good" class="peer sr-only " />
+                                                        <label for="offer" class="cursor-pointer p-0.5 ">
+                                                            <input {{$offer}}  type="radio" name="type_ad" value="offer"
+                                                                id="offer" class="peer sr-only " />
 
                                                             <span
                                                                 class="group inline-flex h-6 w-16 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-amber-500 peer-checked:text-white">
@@ -156,7 +216,7 @@
                                     <!-- -------LOCATION-------- -->
                                     <div  class="mt-2 grid align-start -ml-2 "> 
                                         <label for="location" class="text-base w-20  font-medium text-slate-600 ">Location</label>
-                                        <input required type="number" id="location" name="location"  value="{{$post->location}}" class="border rounded-sm border-slate-400"> 
+                                        <input  type="text" id="title" name="title" value={{$post->location}} class="border rounded-sm border-slate-400">
                                         
                                     </div>
                                     <!-- ---------END LOCATION ------- -->
@@ -177,14 +237,14 @@
                                                 $usedcondition="";
                       
                                                 switch ($post->condition_id) {
-                                                    case 1:
-                                                        $newcondition="checked";
+                                                    case 0:
+                                                        $usedcondition="checked";
                                                         break;
-                                                    case 2:
+                                                    case 1:
                                                         $goodcondition="checked";
                                                         break;
-                                                    case 3:
-                                                        $usedcondition="checked";
+                                                    case 2:
+                                                        $newcondition="checked";
                                                         break;
                                                     default:
                                                         $newcondition="";
@@ -193,7 +253,7 @@
                                                 }
                                          ?>
                                                 <label for="new" class="cursor-pointer p-0.5 ">
-                                                    <input  {{$newcondition}} type="radio" name="new" id="new"
+                                                    <input  {{$newcondition}} type="radio" name="condition" id="new" value="2"
                                                         class="peer sr-only " />
 
                                                     <span
@@ -203,7 +263,7 @@
                                                 </label>
 
                                                 <label for="good" class="cursor-pointer p-0.5">
-                                                    <input {{$goodcondition}}  type="radio" name="good"
+                                                    <input {{$goodcondition}}  type="radio" name="condition" value="1"
                                                         id="good" class="peer sr-only" />
 
                                                     <span
@@ -213,8 +273,8 @@
                                                 </label>
 
                                                 <label for="used" class="cursor-pointer p-0.5">
-                                                    <input {{$usedcondition}}  type="radio" name="used"
-                                                        id="usded" class="peer sr-only" />
+                                                    <input {{$usedcondition}}  type="radio" name="condition" value="0"
+                                                        id="used" class="peer sr-only" />
 
                                                     <span
                                                         class="group inline-flex h-6 w-12 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-red-700 peer-checked:text-white">
@@ -233,9 +293,12 @@
                                         <div class="grid grid-cols-2 gap-10 ">
                                           
                                           <button  href="" type="submit" class="sm:w-40 w-24 rounded-md  hover:text-white hover:bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 border border-blue-900 font-medium  text-blue-900">Modify</button>
-
-                                          {{-- <button href="" class="sm:w-40 w-24 rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white">Delete</button> --}}
-
+                                        </form>
+                                          
+                                          <form action="{{route('delete_ad',['id'=>$post->id])}}" method='POST'>
+                                            @csrf
+                                           <button href="" onclick='delete_ad()' class="sm:w-40 w-24 rounded-md text-red-600 font-medium border-2 border-red-600 hover:border-white hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white">Delete</button> 
+                                          </form>
                                         </div>
                                       </div>
                                     
@@ -270,7 +333,7 @@
                                         </div>
                                     </div>
                                     <!-- {{-- -------------------------fin images mobile--------------------}} -->
-                    </form>           
+                           
                  </section>
                 </div>
             </div>
@@ -278,7 +341,11 @@
     </div>
 
     
-
+<script>
+    function delete_ad(){
+        prompt('Delete your add?');
+    }
+</script>
 
 </x-slot>
 

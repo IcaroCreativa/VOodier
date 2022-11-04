@@ -6,7 +6,7 @@
   <x-app-layout>
   <x-slot name="title">Create ad</x-slot>
   <x-slot name="meta-Description">We are Epitech's student</x-slot>
- <h1 class="bg-blue-700 text-white">PAGINA DE CREATE POST</h1>
+
   <x-slot name="about">
   <p class="hidden"> 
   {{$file_no_error_css=""}}
@@ -187,16 +187,16 @@
        </div> 
         <div class="md:flex  md:mx-6 md:mt-8 md:space-x-1 ml-10">  
           <div class="flex items-center">
-              <input  id="default-radio-1" type="radio" value="1" name="condition" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 ">
+              <input  id="default-radio-1" type="radio" value="2" name="condition" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 ">
               <label for="default-radio-1" class="ml-2 text font-medium text-gray-900 dark:text-gray-300">New</label>
           </div>
 
           <div class="flex items-center ">
-              <input checked id="default-radio-2" type="radio" value="2" name="condition" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
+              <input checked id="default-radio-2" type="radio" value="1" name="condition" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
               <label for="default-radio-2" class="ml-2 text font-medium text-gray-900 dark:text-gray-300">Good</label>
           </div>
           <div class="flex items-center">
-              <input id="default-radio-3" type="radio" value="3" name="condition" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
+              <input id="default-radio-3" type="radio" value="0" name="condition" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
               <label for="default-radio-3" class="ml-2 text font-medium text-gray-900 dark:text-gray-300">Used</label>
           </div>
        </div> 
