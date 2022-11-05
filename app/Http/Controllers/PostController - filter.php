@@ -134,18 +134,20 @@ public function __construct()
         return redirect('index')->with('status', "Yor ad: $title has been delete!");
     }
   
+
     
   /* ---------------------------------------------------------------------------*/
-  /* ----- AFFICHE LA PAGE DES ANNONCES FILTRÉES SELON LES CATÉGORIES ----------*/
+  /* --- AFFICHE LA PAGE INDEX DES ANNONCES FILTRÉES SELON LES CATÉGORIES ------*/
   /* ---------------------------------------------------------------------------*/
 
   public function filtre(Request $request){
     
     // dd($request);
 
-    if ($request->category==null && $request->number_max==null && $request->number_min==null && $request->location==null)
+    if ($request->cat==null && $request->category==null && $request->number_max==null && $request->number_min==null && $request->location==null)
     {
-      return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
+      // return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
+      return Redirect(route('home'));
     }
 
     if(isset($request->number_min) && isset($request->number_max)){
@@ -170,13 +172,20 @@ public function __construct()
       // ->whereRaw("location  = ?",[$request->location])
 
       // dd($request->category);
+
+      $compteur = 0; // 0 si variable est pas vide ou 1 si variable non vide pour la concaténation
+
       if (!empty ($request->category)){
         $query_cat = "category_id = '$request->category'";
+        $compteur = 1;
       }
       else
       {
-        return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
+        $query_cat = "";
+        $compteur = 0;
+        // return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
       }
+
 
       if (!empty ($request->etat) || ($request->etat)!=null){
         // dd($request->etat);
@@ -185,31 +194,64 @@ public function __construct()
         // implode = transformer les clés du tableau dans une chaîne de caractère
         $keys=implode("','",array_keys($request['etat']));
         // dd($keys);
-        $query_etat = "AND condition_id  IN ('$keys')";
+        if ($compteur==0){
+          $query_etat = "condition_id  IN ('$keys')";
+          $compteur==1;
+        }
+        else {
+          $query_etat = "AND condition_id  IN ('$keys')";
+          $compteur==1;
+        } 
       }
       else
       {
         $query_etat = "";
+        $compteur = 0;
       }
 
+
       if (!empty ($request->number_min)){
-        $query_price_min = "AND price >= '$request->number_min'";
+        if ($compteur==0){
+          $query_price_min = "price >= '$request->number_min'";
+          $compteur==1;
+        }
+        else {
+          $query_price_min = "AND price >= '$request->number_min'";
+          $compteur==1;
+        }
       }
       else
       {
         $query_price_min = "";
+        $compteur == 0;
       }
 
+
       if (!empty ($request->number_max)){
-        $query_price_max = "AND price <= '$request->number_max'";
+        if ($compteur==0){
+          $query_price_max = "price <= '$request->number_max'";
+          $compteur==1;
+        }
+        else{
+          $query_price_max = "AND price <= '$request->number_max'";
+          $compteur==1;
+        }
+        
       }
       else
       {
         $query_price_max = "";
+        $compteur==0;
       }
 
       if (!empty ($request->location)){
-        $query_lieu = "AND location = '$request->location'";
+        if($compteur==0){
+          $query_lieu = "location = '$request->location'";
+        }
+        else{
+          $query_lieu = "AND location = '$request->location'";
+        }
+       
       }
       else
       {
@@ -220,6 +262,7 @@ public function __construct()
     /  AVEC CONCATENATION DES DIFFERENTES REQUÊTES DE CHAQUE FILTRE */
 
         $query= DB::table('post')
+        // ->whereRaw($query_cat)
         ->whereRaw($query_cat .$query_etat .$query_price_min .$query_price_max .$query_lieu)
         ->orderBy('title')
         ->get();
@@ -235,52 +278,35 @@ public function __construct()
 /* ----------------------- MOTEUR DE RECHERCHE -------------------------------*/
 /* ---------------------------------------------------------------------------*/
 
-public function search ($keywords){
-  // dd($keywords);
+// public function search (Request $request)
 
-  /* ----- RECHERCHE SELON TOUS LES MOTS SAISIS PAR L'UTILISATEUR ----- */
-  /* ---------------- RECHERCHE UNIQUEMENT DANS LE TITRE -------------- */    
-      // Mettre tous les mots saisis par l'utilisateur dans un array
-      // $words = explode(" ", trim($keywords));
-      // // dd($words);
 
-      // for ($i=0; $i<count($words);$i++)
-      // {
-      //   /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
-      //   $kw_title[$i] = "title like '%".$words[$i]."%'";
-      //   // dd($kw[$i]);
-      //   /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère séparé par des OR */
-      //   $query_title = implode(" OR ", $kw_title);
-      // }
+// // Produits à afficher selon le mot saisi dans la barre de recherche
+// $words = "";
+// if(isset($_POST['submit']) && !empty($_POST['keywords']))
+// {
+//     // Récupérer tous les mots dans un array
+//     $words = explode(" ", trim($_POST['keywords']));
+//     for ($i=0; $i<count($words);$i++)
+//     {
+//         /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
+//         $kw[$i] = "name like '%".$words[$i]."%'";
+//         /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère
+//         séparé par des OR */
+//         $sql = 'SELECT * FROM products WHERE '.implode(" OR ", $kw);
+//         // $sql = "SELECT * FROM products WHERE " .implode(" OR ", $kw) ."ORDER BY 'name' DESC LIMIT :premier, :parpage";
+//         $query = $pdo -> prepare($sql);
 
-      // $query= DB::table('post')
-      // ->whereRaw($query_title)
-      // ->orderBy('title')
-      // ->get();
+//         $query->bindValue(':premier', $premier, PDO::PARAM_INT);
+//         $query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
 
-      // $cities=City::get();
-      // $categories=Category::get();
-      // return view('index',["ads"=>$query ,'categories'=>$categories,'cities'=>$cities]);
+//         $query -> execute();
+//     }
+//     /* si aucun mot saisi dans la barre de recherche n'est trouvé*/
+//     if (($query -> rowcount()) == 0)
+//     {                
+//       $_POST['keywords'] = "Sorry ! no product found. Try search again.";
 
-  /* ----- RECHERCHE SELON LE 1er MOT SAISI PAR L'UTILISATEUR ----- */
-  /* ------ RECHERCHE DANS LE TITRE + CATEGORY + DESCRIPTION ------ */     
-      
-      $query1= DB::table('post')
-      ->whereRaw("title = '$keywords' OR category_id = '$keywords' OR description LIKE '%$keywords%'")
-      ->orderBy('title')
-      ->get();
-
-      // Requête fonctionnelle mais m'affiche une erreur lors de la redirection vers la view
-      // erreur sur la ligne @if($ads->count()==0) de la view index
-      // $query1 = DB::select('SELECT * FROM post WHERE title = ? OR description LIKE ? OR category_id = ?', [$keywords,'%'.$keywords.'%',$keywords]);
-
-      // dd($query1);
-
-      $cities=City::get();
-      $categories=Category::get();
-      return view('index',["ads"=>$query1 ,'categories'=>$categories,'cities'=>$cities]);
-
-  }
 
 
 }

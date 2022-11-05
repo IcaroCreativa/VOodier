@@ -37,8 +37,8 @@
               <div class="bg-white p-4 sm:p-6">
                 <time datetime="2022-10-10" class="block  text-xs text-gray-500">
                   {{$ad->created_at}} 
-               {{-- {{$ad->created_at->toDateString()}}   --}}
-               {{--  affiche seulement la date malgré un timesatmp --}}
+                  {{-- {{$ad->created_at->toDateString()}}   --}}
+                  {{--  Ligne ci-dessus : créer un message d'erreur lorsqu'on filtre les annonces --}}
               
                 </time>
                <div class="w-full flex justify-end">

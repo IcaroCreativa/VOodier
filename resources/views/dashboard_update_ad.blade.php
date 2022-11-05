@@ -2,7 +2,7 @@
     <x-slot name="dashboard">
 
 
- 
+{{-- {{dd($post->id)}}  --}}
  
 {{--    
  {{$post->category_id ?? ''}}

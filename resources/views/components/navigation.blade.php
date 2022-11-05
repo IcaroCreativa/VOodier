@@ -19,8 +19,8 @@
           <span class="sr-only">Logo</span>
           <span class="h-10 w-20 rounded-lg bg-gray-200"></span>
         </a>
-  
-        <form class="mb-0 hidden md:flex">
+        {{-- "{{route('search_post',['id'=>'essai'])}}"  --}}
+        <form class="mb-0 hidden md:flex" action="" method="post" >
           <div class="relative ml-4">
             <input
               class="h-10 rounded-lg  border-2 w-60 border-gray-400 pr-10 pl-4 text-base placeholder-gray-300 focus:z-10"

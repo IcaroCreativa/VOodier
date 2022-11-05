@@ -58,31 +58,41 @@ Route::post('/register',[RegisteredUserController::class,'store']);
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () 
+{
 
-Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-->middleware(['signed', 'throttle:6,1'])
-->name('verification.verify');
+    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
 
-Route::post('dashboard',[UserPostController::class,"index"])->name('dashboard');
-Route::post('dashboard_update_ad',[UserPostController::class,"show"])->name('dashboard_update_ad');
-Route::put('dashboard_update_ad/{id}',[PostController::class,"update"])->name('ad_updated');
+    Route::post('dashboard',[UserPostController::class,"index"])->name('dashboard');
+    Route::post('dashboard_update_ad',[UserPostController::class,"show"])->name('dashboard_update_ad');
+    Route::put('dashboard_update_ad/{id}',[PostController::class,"update"])->name('ad_updated');
 
-Route::post('/dashboard/{id}',[PostController::class,'destroy'])->name('delete_ad');
+    Route::post('/dashboard/{id}',[PostController::class,'destroy'])->name('delete_ad');
 
-Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-->middleware('throttle:6,1')
-->name('verification.send');
+    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware('throttle:6,1')
+    ->name('verification.send');
 
-Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
-->name('verification.notice');
+    Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
+    ->name('verification.notice');
 
-Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
+    Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
-// Route pour filtrer les posts depuis la view app.blade.php
-Route::post('index', [PostController::class,'filtre'])->name('filter_post');
+    // Route pour filtrer les posts depuis la barre de filtres
+    Route::post('index', [PostController::class,'filtre'])->name('filter_post');
+
+    // Route pour filtrer les posts depuis le moteur de recherche
+    Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
+
+
+    Route::post('contact',[ContactController::class,'show'])->name('contact');
+    Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');
+
 });
 
-Route::post('contact',[ContactController::class,'show'])->name('contact');
-Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');
+
+
+
