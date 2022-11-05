@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('post', function (Blueprint $table) {
-            $table->string('image1')->nullable();
-            $table->string('image2')->nullable();
-            $table->string('image3')->nullable();
-            $table->string('image4')->nullable();
-            $table->string('image5')->nullable(); 
+            $table->unsignedBigInteger('user_id');
+ 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            Schema::enableForeignKeyConstraints();
         });
     }
 
@@ -30,11 +29,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('post', function (Blueprint $table) {
-            $table->dropColumn('image1');
-            $table->dropColumn('image2');
-            $table->dropColumn('image3');
-            $table->dropColumn('image4');
-            $table->dropColumn('image5');
+            Schema::disableForeignKeyConstraints();
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
 
         });
     }
