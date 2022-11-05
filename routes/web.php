@@ -81,11 +81,12 @@ Route::middleware('auth')->group(function ()
 
     Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
+    // Route pour filtrer les posts depuis le moteur de recherche
+    // Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
+    Route::put('index', [PostController::class,'search'])->name('search_post');
+
     // Route pour filtrer les posts depuis la barre de filtres
     Route::post('index', [PostController::class,'filtre'])->name('filter_post');
-
-    // Route pour filtrer les posts depuis le moteur de recherche
-    Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
 
 
     Route::post('contact',[ContactController::class,'show'])->name('contact');

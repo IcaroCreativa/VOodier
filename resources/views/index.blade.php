@@ -9,12 +9,19 @@
 <div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
 
     
-      @if($ads->count()==0)
+      @if($ads->count()==0 && session('status'))
       <div class="mx-auto mt-20 p-10 w-3/4 grid col-span-3  grid rows-span-2 rounded-lg shadow-lg bg-slate-100 justify-items-center"> 
-        <img src="{{Storage::url('\images\advertising.png')}}" alt="favicon ad">
+        <img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="favicon ad">
         <h1 class="text-slate-700 md:text-3xl text-center text-justify ">Wow, it seems there are no ads. Connect and send us your first ad!!</h1> 
       </div>
+
+      @elseif ($ads->count()==0) 
+      <div class="mx-auto mt-20 p-10 w-3/4 grid col-span-3  grid rows-span-2 rounded-lg shadow-lg bg-slate-100 justify-items-center"> 
+        <img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="favicon ad">
+        <h1 class="text-slate-700 md:text-3xl text-center text-justify ">It seems that there is no research. Please restart your search.</h1> 
+      </div>
       @endif
+
 
 {{-- {{dd($ads)}} --}}
 @foreach($ads as $ad)

@@ -84,7 +84,7 @@
 
     {{-- ----- FILTRE ET ANNONCES ------  --}}
     <div class="grid lg:col-1">
-      <?php if (request()->routeIs('home') || request()->routeIs('filter_post') ){
+      <?php if (request()->routeIs('home') || request()->routeIs('filter_post') || request()->routeIs('search_post')){
         ?>@include('components.filter')<?php
       }
       else{}

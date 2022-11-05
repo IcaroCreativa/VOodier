@@ -2,7 +2,7 @@
 {{-- ----------------------------------CONTENU + FILTRE-------------------     --}}
 
 
-        <div class=" bg-blue-400">
+        <div class="">
           <details open class="overflow-hidden rounded border border-gray-200">
             <summary
               class="flex items-center justify-between text text-white px-5 py-3 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 lg:hidden"
@@ -46,11 +46,11 @@
                       </select>                                
                   </div>
                          
-                  <div class="pt-2">
+                  {{-- <div class="pt-2">
                     <button type="button" class="text-xs text-gray-500 underline">
                       Reset category
                     </button>
-                  </div>
+                  </div> --}}
                 </div>
               </fieldset>
        
@@ -104,14 +104,14 @@
                     </div>
   
                  
-                    <div class="pt-2">
+                    {{-- <div class="pt-2">
                       <button
                         type="button"
                         class="text-xs text-gray-500 underline"
                       >
                         Reset Age
                       </button>
-                    </div>
+                    </div> --}}
                   </div>
                 </fieldset>
               </div>
@@ -153,14 +153,14 @@
                       </div>
   
                    
-                    <div class="pt-2">
+                    {{-- <div class="pt-2">
                       <button
                         type="button"
                         class="text-xs text-gray-500 underline"
                       >
                         Reset location
                       </button>
-                    </div>
+                    </div> --}}
                   </div>
                 </fieldset>
               </div>
@@ -190,14 +190,14 @@
                     </div>
   
                    
-                    <div class="pt-2">
+                    {{-- <div class="pt-2">
                       <button
                         type="button"
                         class="text-xs text-gray-500 underline"
                       >
                         Reset location
                       </button>
-                    </div>
+                    </div> --}}
                   </div>
                 </fieldset>
               </div>
@@ -207,8 +207,10 @@
                 class="flex justify-between border-t border-gray-200 px-5 py-3"
                 >
                 <button
+                  href = {{route('home')}}
                   name="reset"
                   type="submit"
+                  value="reset"
                   class="rounded text-xs font-medium text-gray-600 underline"
                 >
                   Reset filters
