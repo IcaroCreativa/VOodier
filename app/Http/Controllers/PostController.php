@@ -48,14 +48,12 @@ public function __construct()
             
             
             $login = DB::select('select login from users where id = ?', [$ad->user_id]);
-              return view('ad',['ad'=>$ad,'login'=>$login]);
-            
+            return view('ad',['ad'=>$ad,'login'=>$login]);
             }
   
         public function create(Request $request)
             { 
-
-              
+         
               //validation des données du formulaire
               $request->validate(
                 [    // 'email' => ['email:rfc,dns'],
@@ -145,10 +143,19 @@ public function __construct()
     
     // dd($request);
 
-    if ($request->category==null && $request->number_max==null && $request->number_min==null && $request->location==null)
+
+
+    if ($request->reset==null && $request->category==null && $request->number_max==null && $request->number_min==null && $request->location==null)
     {
       return Redirect(route('home'))->with('status', 'le filtre sur la catégorie est requise');
     }
+
+    if($request->reset!=null){
+      return Redirect(route('home'));
+    }
+
+
+
 
     if(isset($request->number_min) && isset($request->number_max)){
       if(($request->number_min) >= ($request->number_max)){
@@ -237,35 +244,54 @@ public function __construct()
 /* ----------------------- MOTEUR DE RECHERCHE -------------------------------*/
 /* ---------------------------------------------------------------------------*/
 
-// public function search (Request $request)
+public function search (Request $request){
+  $keywords=$request->key;
+  // dd($keywords);
 
+  /* ----- RECHERCHE SELON TOUS LES MOTS SAISIS PAR L'UTILISATEUR ----- */
+  /* ---------------- RECHERCHE UNIQUEMENT DANS LE TITRE -------------- */    
+      // Mettre tous les mots saisis par l'utilisateur dans un array
+      $words = explode(" ", trim($keywords));
+      // dd($words);
 
-// // Produits à afficher selon le mot saisi dans la barre de recherche
-// $words = "";
-// if(isset($_POST['submit']) && !empty($_POST['keywords']))
-// {
-//     // Récupérer tous les mots dans un array
-//     $words = explode(" ", trim($_POST['keywords']));
-//     for ($i=0; $i<count($words);$i++)
-//     {
-//         /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
-//         $kw[$i] = "name like '%".$words[$i]."%'";
-//         /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère
-//         séparé par des OR */
-//         $sql = 'SELECT * FROM products WHERE '.implode(" OR ", $kw);
-//         // $sql = "SELECT * FROM products WHERE " .implode(" OR ", $kw) ."ORDER BY 'name' DESC LIMIT :premier, :parpage";
-//         $query = $pdo -> prepare($sql);
+      for ($i=0; $i<count($words);$i++)
+      {
+        /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
+        $kw_title[$i] = "title like '%".$words[$i]."%'";
+        // dd($kw[$i]);
+        /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère séparé par des OR */
+        $query_title = implode(" OR ", $kw_title);
+      }
 
-//         $query->bindValue(':premier', $premier, PDO::PARAM_INT);
-//         $query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+      $query= DB::table('post')
+      ->whereRaw($query_title)
+      ->orderBy('title')
+      ->get();
 
-//         $query -> execute();
-//     }
-//     /* si aucun mot saisi dans la barre de recherche n'est trouvé*/
-//     if (($query -> rowcount()) == 0)
-//     {                
-//       $_POST['keywords'] = "Sorry ! no product found. Try search again.";
+      $cities=City::get();
+      $categories=Category::get();
+      return view('index',["ads"=>$query ,'categories'=>$categories,'cities'=>$cities])
+      ->with('status', 'sans annonce');
 
+  /* ----- RECHERCHE SELON LE 1er MOT SAISI PAR L'UTILISATEUR ----- */
+  /* ------ RECHERCHE DANS LE TITRE + CATEGORY + DESCRIPTION ------ */     
+      
+      // $query1= DB::table('post')
+      // ->whereRaw("title = '$keywords' OR category_id = '$keywords' OR description LIKE '%$keywords%'")
+      // ->orderBy('title')
+      // ->get();
+
+      // // Requête fonctionnelle mais m'affiche une erreur lors de la redirection vers la view
+      // // erreur sur la ligne @if($ads->count()==0) de la view index
+      // // $query1 = DB::select('SELECT * FROM post WHERE title = ? OR description LIKE ? OR category_id = ?', [$keywords,'%'.$keywords.'%',$keywords]);
+
+      // // dd($query1);
+
+      // $cities=City::get();
+      // $categories=Category::get();
+      // return view('index',["ads"=>$query1 ,'categories'=>$categories,'cities'=>$cities]);
+
+  }
 
 
 }

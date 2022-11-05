@@ -76,25 +76,32 @@
         
 {{---------------Appel du filtre + Annonces ------------------- --}}      
 
-<div class="grid grid-cols-1 gap-4 lg:grid-cols-4  lg:items-start">
 
-  <div class="grid lg:col-1">
-    <?php if (request()->routeIs('home') || request()->routeIs('filter_post') ){
+<section class="  mx-auto max-w-screen-xl  px-4  py-6 sm:px-4 lg:px-4 ">
+ 
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
 
-      ?>@include('components.filter')<?php
-    }
-    else{}
-    ?>
 
-    <div class="grid lg:col-span-3">        
-      <div>
-        {{$slot ?? ''}}
-      </div>                  
+    {{-- ----- FILTRE ET ANNONCES ------  --}}
+    <div class="grid lg:col-1">
+      <?php if (request()->routeIs('home') || request()->routeIs('filter_post') || request()->routeIs('search_post')){
+        ?>@include('components.filter')<?php
+      }
+      else{}
+      ?>
+
+      {{-- ----- ANNONCES ------  --}}
+      <div class="grid lg:col-span-3">        
+        <div>
+          {{$slot ?? ''}}
+        </div>                  
+      </div>
+
     </div>
+
   </div>
 
-
-</div>
+</section>
 
 
 
