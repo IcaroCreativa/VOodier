@@ -76,7 +76,7 @@
         
 {{---------------Appel du filtre + Annonces ------------------- --}}      
 
-<div class="grid grid-cols-1 gap-4 lg:grid-cols-4 bg-red-200 lg:items-start">
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-4  lg:items-start">
 
   <div class="grid lg:col-1">
     <?php if (request()->routeIs('home') || request()->routeIs('filter_post') ){

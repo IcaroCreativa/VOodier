@@ -21,7 +21,7 @@
   <div class="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8">
     <div class=" mx-auto max-w-lg  ">
  
-      <form action="{{Route('registro')}}" method="post" enctype="multipart/form-data" class=" w/2/6 px-4 py-8 sm:px-6 lg:px-8 mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl rounded-t-lg" >
+      <form action="{{'/create_post'}}" method="post" enctype="multipart/form-data" class=" w/2/6 px-4 py-8 sm:px-6 lg:px-8 mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl rounded-t-lg" >
         @csrf
         <div class="w-full grid  grid-cols-1 grid rows-2   ">
             <div class="grid justify-center ">

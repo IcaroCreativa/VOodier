@@ -17,6 +17,10 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
+Route::get('/contact_us',function(){
+    return view('contact_us');
+})->name('contact_us');
+
 Route::get('forgot_password', [PasswordResetLinkController::class, 'create'])
  ->name('password.request');
 Route::post('forgot_password', [PasswordResetLinkController::class, 'store'])
@@ -46,13 +50,13 @@ Route::view('/zip','zip')->middleware('auth')->name('zip');
 Route::post('zip',[CityController::class,'__invoke'])->middleware('auth')->name('location');
 
 Route::get('create_post',[CityController::class, 'show'])->middleware('auth')->name('create_post');
-Route::post('/index', [PostController::class, 'create'])->middleware('auth')->name('registro');
+Route::post('create_post', [PostController::class, 'create'])->middleware('auth');
 
 Route::get('/{ad}',[PostController::class,'show']);
 
+
 Route::view('contact','contact')->name('contact');
 Route::post('contact',[ContactController::class,'store'])->name('contact');
-
 
 Route::post('/register',[RegisteredUserController::class,'store']);
 

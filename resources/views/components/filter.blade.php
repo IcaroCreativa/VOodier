@@ -2,7 +2,7 @@
 {{-- ----------------------------------CONTENU + FILTRE-------------------     --}}
 
 
-        <div class=" bg-blue-400">
+        <div class="">
           <details open class="overflow-hidden rounded border border-gray-200">
             <summary
               class="flex items-center justify-between text text-white px-5 py-3 bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 lg:hidden"

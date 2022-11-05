@@ -38,6 +38,16 @@ class ContactController extends Controller
         // $email = $request->email;
         // $info_email =Post::find($email);
 
+         //validation des données du formulaire
+        //  $request->validate(
+        //     [   'email' => ['required','email:rfc,dns'],
+        //         'phone_customer'=>['numeric','min:10','max:10'],
+        //         'name_customer'=>['required','string']
+                
+        //     ]
+        //     );
+
+
         return redirect('index')->with('status', 'Your email has been sent!');
 
     }

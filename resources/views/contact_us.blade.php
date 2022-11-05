@@ -1,12 +1,10 @@
 {{-- <x-layouts.app > --}}
   <x-app-layout>
-    <x-slot name="title">Antonio</x-slot>
+    <x-slot name="title">Contact Us</x-slot>
     <x-slot name="meta-Description">We are Epitech's student</x-slot>
-
+   
     <x-slot name="contact">
-        {{-- @dump($info_user)
-        @dump($info_post) --}}
-
+     
         <!-- ====== Contact Section Start -->
 <section class="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]">
     <div class="container mx-auto">
@@ -14,15 +12,15 @@
         <div class="w-full px-4 lg:w-1/2 xl:w-6/12">
           <div class="mb-12 max-w-[570px] lg:mb-0">
             <span class="text-primary mb-4 text-xl text-blue-600 block text-base font-semibold">
-              Contact page
+              Contact Us
             </span>
             <h2
               class="text-slate-600 mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]"
             >
-              GET IN TOUCH WITH {{$info_user->login}}
+              GET IN TOUCH WITH US
             </h2>
             <p class="text-body-color mb-9 text-base leading-relaxed">
-              Are you interested in the <strong>{{$info_post->title}}</strong> ad of {{ucfirst(strtolower($info_user->login))}}? In order to put you in contact with him. Please fill in the fields on the right and modify the message according to your needs. We will contact the seller to get in touch with you. 
+                We read and respond to every question from a customer. We really want to hear from you! Our clients are very important to us: we love to answer your questions.
             </p>
             <div class="mb-8 flex w-full max-w-[370px]">
               <div
@@ -40,9 +38,9 @@
                 </svg>
               </div>
               <div class="w-full">
-                <h4 class="text-dark mb-1 text-xl font-bold">Ad Location</h4>
+                <h4 class="text-dark mb-1 text-xl font-bold">Our Location</h4>
                 <p class="text-body-color text-base">
-                 {{$info_post->location}}
+                  17 rue des initiés St Jean de Cucules 34380. France
                 </p>
               </div>
             </div>
@@ -68,10 +66,9 @@
                 </svg>
               </div>
               <div class="w-full">
-                <h4 class="text-dark mb-1 text-xl font-bold">Any problems? Contact Us</h4>
+                <h4 class="text-dark mb-1 text-xl font-bold">Phone Number</h4>
                 <p class="text-body-color text-base">(+33)434 46 90 96</p>
               </div>
-             
             </div>
             <div class="mb-8 flex w-full max-w-[370px]">
               <div
@@ -97,7 +94,7 @@
         </div>
         <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
           <div class="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
-            <form method="post"  action="{{route('send_email')}}">
+            <form method="post"  >
                 @csrf
                 @method('POST')
               <div class="mb-6">
@@ -105,62 +102,36 @@
                   type="text"
                   placeholder="Your Name"
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
-                  value=""
-                  name="name_customer" required
-                  />
+                />
               </div>
               <div class="mb-6">
                 <input
                   type="email"
                   placeholder="Your Email"
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
-                  name="email_customer" required
-
                 />
               </div>
               <div class="mb-6">
                 <input
-                  type="number"
-                  minlength=10
-                  maxlength=10
+                  type="text"
                   placeholder="Your Phone"
                   class="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
-                  name="phone_customer" 
-
                 />
               </div>
               <div class="mb-6">
                 <textarea
                   rows="6"
                   placeholder="Your Message"
-
-                  class="text-body-color font-medium border-[f0f0f0] focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
-                  name="message_seller" required
-                >
-Hello {{ucfirst(strtolower($info_user->login))}},
-I am contacting you for your ad entitled: 
-{{$info_post->title}} from {{$info_post->created_at}}
-
-Price: {{$info_post->price}} €
-Description: {{$info_post->description}}
-
-I am very interested in your offer. Is it still for sale?
-If so I would like to have more details. 
-
-If you wish, please find below my contact details so that we can discuss your offer.
-
-Kind regards,
-
-Write here your name.
-
-Write here your email
-Write here your phone number.
-
-            </textarea>
+                  class="text-body-color border-[f0f0f0] focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none"
+                ></textarea>
               </div>
               <div>
-                <button type="submit"  class="bg-gradient-to-r from-red-800 via-red-600 to-red-500 border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90">Send Message</button>
-
+                <button
+                  type="submit"
+                  class="bg-gradient-to-r from-red-800 via-red-600 to-red-500 border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90"
+                >
+                  Send Message
+                </button>
               </div>
             </form>
             <div>
@@ -977,7 +948,7 @@ Write here your phone number.
     </div>
   </section>
   <!-- ====== Contact Section End -->
-
+  
 
 
 
@@ -986,9 +957,9 @@ Write here your phone number.
 
 
     </x-slot>
-
+    
 
   </x-app-layout>
-
-
+   
+    
 {{-- </x-layouts.app> --}}
