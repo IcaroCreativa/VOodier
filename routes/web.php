@@ -85,6 +85,9 @@ Route::middleware('auth')->group(function ()
 
     Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
+
+});
+
     // Route pour filtrer les posts depuis le moteur de recherche
     // Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
     Route::put('index', [PostController::class,'search'])->name('search_post');
@@ -95,9 +98,6 @@ Route::middleware('auth')->group(function ()
 
     Route::post('contact',[ContactController::class,'show'])->name('contact');
     Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');
-
-});
-
 
 
 

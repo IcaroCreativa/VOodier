@@ -28,7 +28,7 @@ class PostController extends Controller
      */
 public function __construct()
 {
-  $this->middleware('auth',['except'=>['index','show']]);
+  $this->middleware('auth',['except'=>['index','show','search','filtre']]);
 }
 
         public function index()
@@ -249,22 +249,39 @@ public function search (Request $request){
   // dd($keywords);
 
   /* ----- RECHERCHE SELON TOUS LES MOTS SAISIS PAR L'UTILISATEUR ----- */
-  /* ---------------- RECHERCHE UNIQUEMENT DANS LE TITRE -------------- */    
+  /* ---------------- RECHERCHE DANS TITRE + DESCRIPTION -------------- */    
       // Mettre tous les mots saisis par l'utilisateur dans un array
-      $words = explode(" ", trim($keywords));
-      // dd($words);
+      $words_envoyes = explode(" ", trim($keywords));
+      $words_retenus=array();
+      $compteur = count($words_envoyes);
+      // echo ($compteur); echo"<br>";
+
+      // boucle permettant de ne pas retenir les mots inférieurs à 2 caractères
+      for ($i=0; $i<$compteur;$i++){
+        $x = strlen($words_envoyes[$i]);     
+        if ($x<=2){
+          unset ($words_retenus[$i]);
+        }
+        else {
+          array_push($words_retenus,$words_envoyes[$i]);
+        };
+      }
+      
+      $words=$words_retenus;
 
       for ($i=0; $i<count($words);$i++)
       {
         /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
         $kw_title[$i] = "title like '%".$words[$i]."%'";
+        $kw_description[$i] = "description like '%".$words[$i]."%'";
         // dd($kw[$i]);
-        /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère séparé par des OR */
+        /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère séparée par des OR */
         $query_title = implode(" OR ", $kw_title);
+        $query_description = implode(" OR ", $kw_description);
       }
 
       $query= DB::table('post')
-      ->whereRaw($query_title)
+      ->whereRaw($query_title .'OR ' .$query_description)
       ->orderBy('title')
       ->get();
 
@@ -272,24 +289,6 @@ public function search (Request $request){
       $categories=Category::get();
       return view('index',["ads"=>$query ,'categories'=>$categories,'cities'=>$cities])
       ->with('status', 'sans annonce');
-
-  /* ----- RECHERCHE SELON LE 1er MOT SAISI PAR L'UTILISATEUR ----- */
-  /* ------ RECHERCHE DANS LE TITRE + CATEGORY + DESCRIPTION ------ */     
-      
-      // $query1= DB::table('post')
-      // ->whereRaw("title = '$keywords' OR category_id = '$keywords' OR description LIKE '%$keywords%'")
-      // ->orderBy('title')
-      // ->get();
-
-      // // Requête fonctionnelle mais m'affiche une erreur lors de la redirection vers la view
-      // // erreur sur la ligne @if($ads->count()==0) de la view index
-      // // $query1 = DB::select('SELECT * FROM post WHERE title = ? OR description LIKE ? OR category_id = ?', [$keywords,'%'.$keywords.'%',$keywords]);
-
-      // // dd($query1);
-
-      // $cities=City::get();
-      // $categories=Category::get();
-      // return view('index',["ads"=>$query1 ,'categories'=>$categories,'cities'=>$cities]);
 
   }
 
