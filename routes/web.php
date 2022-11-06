@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserPostController;
+use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -16,6 +17,14 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+
+
+
+
+
+// Route::get('/user_account',function(){
+//     return view('/user_account');
+// })->name('user_account');
 
 Route::get('/contact_us',function(){
     return view('contact_us');
@@ -62,8 +71,11 @@ Route::post('/register',[RegisteredUserController::class,'store']);
 
 
 
+
 Route::middleware('auth')->group(function () 
 {
+    Route::post('/user_account',[UserAccountController::class,'show'])->name('user_account');
+    // Route::post('/user_account',[UserAccountController::class,'update'])->name('user_account_update');
 
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
     ->middleware(['signed', 'throttle:6,1'])
@@ -73,8 +85,9 @@ Route::middleware('auth')->group(function ()
     Route::post('dashboard',[UserPostController::class,"index"])->name('dashboard');
     Route::post('dashboard_update_ad',[UserPostController::class,"show"])->name('dashboard_update_ad');
     Route::put('dashboard_update_ad/{id}',[PostController::class,"update"])->name('ad_updated');
-
+  
     Route::post('/dashboard/{id}',[PostController::class,'destroy'])->name('delete_ad');
+  
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
     ->middleware('throttle:6,1')
@@ -85,19 +98,19 @@ Route::middleware('auth')->group(function ()
 
     Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
-    // Route pour filtrer les posts depuis le moteur de recherche
-    // Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
-    Route::put('index', [PostController::class,'search'])->name('search_post');
-
-    // Route pour filtrer les posts depuis la barre de filtres
-    Route::post('index', [PostController::class,'filtre'])->name('filter_post');
-
-
-    Route::post('contact',[ContactController::class,'show'])->name('contact');
-    Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');
+    
+   
+ 
 
 });
 
+// Route pour filtrer les posts depuis le moteur de recherche
+// Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
+Route::put('index', [PostController::class,'search'])->name('search_post');
 
+// Route pour filtrer les posts depuis la barre de filtres
+Route::post('index', [PostController::class,'filtre'])->name('filter_post');
 
+Route::post('contact',[ContactController::class,'show'])->name('contact');
+Route::post('send_email',[ContactController::class,'send_email'])->name('send_email');
 

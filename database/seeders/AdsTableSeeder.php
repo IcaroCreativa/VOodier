@@ -56,7 +56,7 @@ class AdsTableSeeder extends Seeder
         $annonce4 ->location = "Bordeaux";
         $annonce4 ->image1 = "images/four.jpg";
         $annonce4 ->category_id = "House";
-        $annonce4 ->condition_id ="3";
+        $annonce4 ->condition_id ="0";
         $annonce4 ->user_id = "33";
         $annonce4 -> save();
 
@@ -67,7 +67,7 @@ class AdsTableSeeder extends Seeder
         $annonce5 ->location = "Lyon";
         $annonce5 ->image1 = "images/karcher.jpg";
         $annonce5 ->category_id = "House";
-        $annonce5 ->condition_id ="3";
+        $annonce5 ->condition_id ="2";
         $annonce5 ->user_id = "33";
         $annonce5 -> save();
 
@@ -100,7 +100,7 @@ class AdsTableSeeder extends Seeder
         $annonce8 ->location = "Toulouse";
         $annonce8 ->image1 = "images/table.jpg";
         $annonce8 ->category_id = "House";
-        $annonce8 ->condition_id ="1";
+        $annonce8 ->condition_id ="2";
         $annonce8 ->user_id = "33";
         $annonce8 -> save();
 
@@ -111,7 +111,7 @@ class AdsTableSeeder extends Seeder
         $annonce9 ->location = "Caen";
         $annonce9 ->image1 = "images/trotinette.jpg";
         $annonce9 ->category_id = "Hobbies";
-        $annonce9 ->condition_id ="3";
+        $annonce9 ->condition_id ="1";
         $annonce9 ->user_id = "33";
         $annonce9 -> save();
 

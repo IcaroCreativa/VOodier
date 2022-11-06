@@ -31,6 +31,7 @@
         {{$blur ?? ''}}
         {{$dashboard ?? ''}}
         {{$message ?? ''}}
+        {{$user_account ?? ''}}
         {{-- {{$index_filter ?? ''}} --}}
 
 

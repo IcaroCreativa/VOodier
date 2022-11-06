@@ -8,12 +8,19 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 // use Illuminate\Support\Facades\DB;
+use PharIo\Manifest\Url;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\UserPostController;
+use Illuminate\Console\View\Components\Alert;
+
  
 
 
@@ -28,7 +35,7 @@ class PostController extends Controller
      */
 public function __construct()
 {
-  $this->middleware('auth',['except'=>['index','show']]);
+  $this->middleware('auth',['except'=>['index','show','search','filtre']]);
 }
 
         public function index()
@@ -85,7 +92,7 @@ public function __construct()
                 $Annonce -> location = $request -> location;
         
                 /* ----- traitement de l'image ---- */
-               
+      
                 // Générer un nom de fichier unique "dynamique" avec time + extension de l'image //
                 $filename = Str::uuid().'.'.$request -> img1 -> extension();
         
@@ -121,14 +128,117 @@ public function __construct()
                 return Redirect('/index')->with('status', "Your ad has been created!");
             }
 
-              /**
+            
+        public function update (Request $request){
+         
+        
+          $post_id=$request->id;
+          $post=Post::findOrFail($post_id);
+          $post->category_id=$request->category;
+          $post->title=$request->title;
+          $post->type_ad=$request->type_ad;
+          $post->price=$request->price;
+          $post->description=$request->description;
+          $post->location=$request->location;
+          $post->condition_id=$request->condition;
+          
+          
+         $image1_to_delete='C:\laragon\www\VOodies\public'.Storage::url($post->image1);
+
+        
+         $image2_to_delete='C:\laragon\www\VOodies\public'.Storage::url($post->image2);
+         $image3_to_delete='C:\laragon\www\VOodies\public'.Storage::url($post->image3);
+         $image4_to_delete='C:\laragon\www\VOodies\public'.Storage::url($post->image4);
+         $image5_to_delete='C:\laragon\www\VOodies\public'.Storage::url($post->image5);
+         
+        
+
+          
+          if (isset($request->img1)){
+          $filename = Str::uuid().'.'.$request -> img1->extension();
+          $post -> image1 = $request->file('img1')->storeAs('images',$filename,'public');
+         
+          
+          if(File::exists($image1_to_delete)){
+            unlink($image1_to_delete);
+            
+            }
+    
+         }
+          
+          if (isset($request -> img2)){
+            if(File::exists($image2_to_delete) && $post->image2 !=null){
+              unlink($image2_to_delete);
+            }
+            
+            $filename2 = Str::uuid().'.'.$request -> img2 -> extension();
+              $post -> image2 = $request->file('img2')->storeAs('images',$filename2,'public'); 
+              
+          }
+          if (isset($request -> img3)){
+
+            if(File::exists($image3_to_delete) && $post->image3 !=null){
+              unlink($image3_to_delete);
+            }
+            
+            $filename3 = Str::uuid().'.'.$request -> img3 -> extension();
+              $post -> image3 = $request->file('img3')->storeAs('images',$filename3,'public');
+              
+
+          }
+          if (isset($request -> img4)){
+            if(File::exists($image4_to_delete) && $post->image4 !=null){
+              unlink($image4_to_delete);
+            }
+            
+            $filename4 = Str::uuid().'.'.$request -> img4 -> extension();
+            $post -> image4 = $request->file('img4')->storeAs('images',$filename4,'public');
+            
+          }
+
+          if (isset($request -> img5)){
+
+
+            if(File::exists($image5_to_delete) && $post->image5 !=null){
+              unlink($image5_to_delete);
+            }
+            $filename5 = Str::uuid().'.'.$request -> img5 -> extension();
+            $post -> image5 = $request->file('img5')->storeAs('images',$filename5,'public');
+            
+          }
+
+          $post->save();
+
+          // $userID = Auth::user()->id; 
+          // $posts = DB::select('select * from post where user_id = ?', [$userID]);
+          // $categories=Category::all();
+          // return view('dashboard',compact('posts','categories'));
+          $dashboard=new UserPostController;
+          return $dashboard->index();
+           
+         
+            
+          
+       
+       
+
+          
+        }    
+            
+        
+            
+            
+            
+            /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   $id=Post::find($id);
+    {   
+  
+       $id=Post::find($id);
         $title=$id->title;
         $id->delete();
         return redirect('index')->with('status', "Yor ad: $title has been delete!");

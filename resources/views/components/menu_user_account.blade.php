@@ -1,5 +1,7 @@
+
+
 <section id="account_menu"
-  class="  fixed inset-y-0 right-0 z-50 flex mt-1 mr-40 md:mr-6 md:mt-16 lg:mr-32 xl:mr-64 2xl:mr-96">
+  class=" h-32 fixed inset-y-0 right-0 z-50 flex mt-1 mr-40 md:mr-6 md:mt-16 lg:mr-32 xl:mr-64 2xl:mr-96">
   <div class="max-w-sm">
     <div class="flex  flex-col divide-y divide-gray-200 bg-slate-50 border rounded-md">
       <div class="">
@@ -18,7 +20,7 @@
         </header>
 
         <nav
-          class="flex h-8 flex-col divide-y divide-gray-200 border-t border-b border-gray-200 text-sm font-medium text-gray-500">
+          class="flex h-8 flex-col divide-y divide-gray-200 border-t border-b border-gray-200 text-sm font-medium text-gray-500 hover:bg-gray-200">
           <form action="{{route('dashboard')}}" method='POST'>
             @csrf
             <button href="" class="flex items-center px-6 py-1">
@@ -35,12 +37,26 @@
           </form>
         </nav>
 
-
         <nav
-          class="flex h-8 flex-col divide-y divide-gray-200 border-t border-b border-gray-200 text-sm font-medium text-gray-500">
+        class="flex h-8 flex-col divide-y divide-gray-200 border-t border-b border-gray-200 text-sm font-medium text-gray-500 hover:bg-gray-200">
+        <form action="{{route('user_account')}}" method='post'>
+         @csrf
+          <button type=submit href="" class="flex items-center px-6 py-1" name='$id' value="test">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            <p class="ml-2"> Account</p>
+          </button>
+        </form>
+      </nav>
+        
+        
+        
+        
+        
+        <nav
+          class="flex h-8 flex-col divide-y divide-gray-200 border-t border-b border-gray-200 text-sm font-medium text-gray-500 hover:bg-gray-200">
           <form action="{{route('logout')}}" method='POST'>
             @csrf
-            <button href="" class="flex items-center px-6 py-1">
+            <button href="" class="flex items-center px-6 py-1 ">
               <svg class="w-6 h-6 stroke-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,6 +66,8 @@
             </button>
           </form>
         </nav>
+
+       
 
 
       </div>
