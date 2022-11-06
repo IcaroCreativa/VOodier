@@ -28,7 +28,7 @@ class PostController extends Controller
      */
 public function __construct()
 {
-  $this->middleware('auth',['except'=>['index','show','search','filtre']]);
+  $this->middleware('auth',['except'=>['index','show']]);
 }
 
         public function index()
@@ -134,7 +134,7 @@ public function __construct()
         return redirect('index')->with('status', "Yor ad: $title has been delete!");
     }
   
-  
+
     
   /* ---------------------------------------------------------------------------*/
   /* --- AFFICHE LA PAGE INDEX DES ANNONCES FILTRÉES SELON LES CATÉGORIES ------*/
@@ -283,53 +283,35 @@ public function __construct()
 /* ----------------------- MOTEUR DE RECHERCHE -------------------------------*/
 /* ---------------------------------------------------------------------------*/
 
-public function search (Request $request){
-  $keywords=$request->key;
-  // dd($keywords);
+// public function search (Request $request)
 
-  /* ----- RECHERCHE SELON TOUS LES MOTS SAISIS PAR L'UTILISATEUR ----- */
-  /* ---------------- RECHERCHE DANS TITRE + DESCRIPTION -------------- */    
-      // Mettre tous les mots saisis par l'utilisateur dans un array
-      $words_envoyes = explode(" ", trim($keywords));
-      $words_retenus=array();
-      $compteur = count($words_envoyes);
-      // echo ($compteur); echo"<br>";
 
-      // boucle permettant de ne pas retenir les mots inférieurs à 2 caractères
-      for ($i=0; $i<$compteur;$i++){
-        $x = strlen($words_envoyes[$i]);     
-        if ($x<=2){
-          unset ($words_retenus[$i]);
-        }
-        else {
-          array_push($words_retenus,$words_envoyes[$i]);
-        };
-      }
-      
-      $words=$words_retenus;
+// // Produits à afficher selon le mot saisi dans la barre de recherche
+// $words = "";
+// if(isset($_POST['submit']) && !empty($_POST['keywords']))
+// {
+//     // Récupérer tous les mots dans un array
+//     $words = explode(" ", trim($_POST['keywords']));
+//     for ($i=0; $i<count($words);$i++)
+//     {
+//         /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
+//         $kw[$i] = "name like '%".$words[$i]."%'";
+//         /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère
+//         séparé par des OR */
+//         $sql = 'SELECT * FROM products WHERE '.implode(" OR ", $kw);
+//         // $sql = "SELECT * FROM products WHERE " .implode(" OR ", $kw) ."ORDER BY 'name' DESC LIMIT :premier, :parpage";
+//         $query = $pdo -> prepare($sql);
 
-      for ($i=0; $i<count($words);$i++)
-      {
-        /* tableau $kw contenant les expressions des mots saisis par l'utilisateur */
-        $kw_title[$i] = "title like '%".$words[$i]."%'";
-        $kw_description[$i] = "description like '%".$words[$i]."%'";
-        // dd($kw[$i]);
-        /* réaliser la requête en associant les mots du tableau $kw grâce la fonction implode qui convertit le tableau $kw en 1 chaine de caractère séparée par des OR */
-        $query_title = implode(" OR ", $kw_title);
-        $query_description = implode(" OR ", $kw_description);
-      }
+//         $query->bindValue(':premier', $premier, PDO::PARAM_INT);
+//         $query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
 
-      $query= DB::table('post')
-      ->whereRaw($query_title .'OR ' .$query_description)
-      ->orderBy('title')
-      ->get();
+//         $query -> execute();
+//     }
+//     /* si aucun mot saisi dans la barre de recherche n'est trouvé*/
+//     if (($query -> rowcount()) == 0)
+//     {                
+//       $_POST['keywords'] = "Sorry ! no product found. Try search again.";
 
-      $cities=City::get();
-      $categories=Category::get();
-      return view('index',["ads"=>$query ,'categories'=>$categories,'cities'=>$cities])
-      ->with('status', 'sans annonce');
-
-  }
 
 
 }
