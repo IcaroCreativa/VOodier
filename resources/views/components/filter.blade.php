@@ -177,14 +177,14 @@
                   <div class="space-y-2 px-5 py-6">
                     <div class="flex items-center">
                       <label for="new" class="ml-3 text-sm font-medium ">
-                        Ville
+                        City
                       </label>
                       <input
                         id="location"
                         type="text"
                         name="location"
                         placeholder="select city"
-                        class="h-6 w-24 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
+                        class="h-6 w-32 ml-4 pl-2 pr-2 rounded border-gray-300 border border-gray-400"
                       />
                       @error('location')<small class="text-red-600 ">{{$message}}</small>@enderror
                     </div>

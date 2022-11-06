@@ -10,7 +10,8 @@
     <div class="container  mx-auto bg-gradient-to-r from-blue-900 via-blue-600 to-blue-500 border border-gray-300 shadow-lg rounded-md">
         <div class="inputs w-full max-w-2xl p-6 mx-auto">
             <h2 class="text-2xl text-white">Account Setting</h2>
-            <form class="mt-6 border-t border-gray-400 pt-4" metod='POST' action="">
+            <form class="mt-6 border-t border-gray-400 pt-4" metod='get' action="{{route('user_update')}}">
+               
                 @csrf
                 <div class='flex flex-wrap -mx-3 mb-6'>
                     <div class='w-full md:w-full px-3 mb-6'>
@@ -25,7 +26,7 @@
                     <div class='w-full md:w-full px-3 mb-6 '>
                         <label for=password class='block uppercase tracking-wide text-white text-xs font-bold mb-2'>password</label>
                         <div class="flex-shrink w-full inline-block relative">
-                            <p id=password name=password value="" class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' id='grid-text-1' type='text' placeholder='Enter email'  required>********</p>
+                            <input required type=password minlength=8 id=password name=password  class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' id='grid-text-1' type='text' placeholder='Enter email' value="*******" required>
                             <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                             </div>
@@ -34,7 +35,7 @@
                     <div class='w-full md:w-full px-3 mb-6'>
                         <label for=number_ads class='block uppercase tracking-wide text-white text-xs font-bold mb-2'>Ads</label>
                         <div class="flex-shrink w-full inline-block relative">
-                            <p id=number_ads name=number_ads value="" class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' id='grid-text-1' type='text' placeholder='Enter email' >10</p>
+                            <p id=number_ads name=number_ads value="" class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' id='grid-text-1' type='text' placeholder='Enter email' >{{$user_posts}}</p>
                             <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
                             </div>
@@ -71,11 +72,11 @@
                         </div>
                     </div>
                         
-                        
+                    {{-- {{route('user_delete')}} --}}
                         <div class="flex justify-center ">
-                            <button href="" class="w-1/6 appearance-none hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white focus:bg-red-600  focus:bg-red-600  bg-white text-red-600 font-medium px-2 py-1 shadow-sm border border-white rounded-md mr-3" type="submit">Modify</button>
+                            <button type=submit name=user_id value={{$user_data->id}} class="w-1/6 appearance-none hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white focus:bg-red-600  focus:bg-red-600  bg-white text-red-600 font-medium px-2 py-1 shadow-sm border border-white rounded-md mr-3" type="submit">Modify</button>
                             </form>
-                            <form method='post' action="{{route('user_delete')}}" class="w-28">
+                            <form method='post' action="" class="w-28">
                                 @csrf
                                 <button name=user_id value={{$user_data->id}} href="" class="w-full appearance-none hover:bg-gradient-to-r from-red-900 via-red-600 to-red-500 hover:text-white focus:bg-red-600  focus:bg-red-600  bg-white text-red-600 font-medium px-2 py-1 shadow-sm border border-white rounded-md mr-3" type="submit">Delete</button>
                             </form> 

@@ -22,9 +22,14 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
 
 
-// Route::get('/user_account',function(){
-//     return view('/user_account');
-// })->name('user_account');
+
+// Route::get('/user_update',function(){
+//     return view('user_update');
+// })->middleware('auth')->name('user_update');
+
+Route::get('/user_update', [UserAccountController::class, 'update'])
+->middleware('auth')->name('user_update');
+
 
 Route::get('/contact_us',function(){
     return view('contact_us');
@@ -69,23 +74,12 @@ Route::post('contact',[ContactController::class,'store'])->name('contact');
 
 Route::post('/register',[RegisteredUserController::class,'store']);
 
-// Suppression du User et de ses posts (suppression en "cascade" par le biais de la clé)
-// Route::post('user_account_update/{id}',[UserAccountController::class,'destroy'])->('delete_user');
-
-
-
 
 Route::middleware('auth')->group(function () 
 {
-    // Route::post('/user_delete',function(){
-    //     return view('user_delete');
-    // })->name('user_delete');
-
-   Route::post('/user_delete',[UserAccountController::class,'destroy'])->name('user_delete');
+  
     Route::post('/user_account',[UserAccountController::class,'show'])->name('user_account');
-    
-    // Route::post('/user_account',[UserAccountController::class,'update'])->name('user_account_update');
-
+  
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
     ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');

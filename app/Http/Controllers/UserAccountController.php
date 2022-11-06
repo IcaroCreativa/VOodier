@@ -4,11 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Validation\Rules;
 
 class UserAccountController extends Controller
 {
+    
+    public function __construct()
+{
+  $this->middleware('auth',['except'=>['index','show','search','filtre']]);
+}
+    
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +64,8 @@ class UserAccountController extends Controller
    
     {  
        $user_data=Auth::user();
-       return view('user_account',['user_data'=>$user_data]);
+       $posts= DB::select('select * from post where user_id = ?', [$user_data->id]);
+       return view('user_account',['user_data'=>$user_data, 'user_posts'=>count($posts)]);
     }
 
     /**
@@ -72,8 +87,19 @@ class UserAccountController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {   echo 'PAGE USER ACCOUNT ROUTE POST';
-        dd($request);
+    {   
+        $user=User::find($request->user_id);
+        $user->email=$request->email;
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+        $user->login=$request->login;
+        $user->phone_number=$request->phone_number;
+        $user->password=Hash::make($request->password);
+        $user->save();
+
+        return redirect('index')->with('status', "Your account have been modified succesfully.");
+        
+
     }
 
     /**
@@ -91,10 +117,11 @@ class UserAccountController extends Controller
       
         $id=$request->user_id;
         $user = User::findOrFail($id);
-        $post=
-        $posts=Post::find(User::find($id));
-        dd($posts);
-
+        $posts= DB::select('select * from post where user_id = ?', [$id]);
+        foreach($posts as $post){
+            echo $post->id;
+            DB::delete('delete from post where id=?',[$post->id]);
+        }       
 
         $user->delete();
         return redirect('index')->with('status', "You have been deleted. See you soon !");
