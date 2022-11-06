@@ -8,10 +8,10 @@
   <x-slot name="meta-Description">We are Epitech's student</x-slot>
 
   <x-slot name="about">
-  <p class="hidden"> 
+  
   {{$file_no_error_css=""}}
   {{$file_error_css="hidden"}}
-  <p> 
+ 
     
     @error('img1')
     {{$file_error_css=""}}
@@ -110,7 +110,7 @@
       </div>
       <div class="2 mt-2 h-20 w-20 hover:h-24 hover:w-24 " >
           <label for="imgInp">
-           <img id="image1" src="{{URL::asset('/images/camera.png')}}" alt="image-require" " class="{{$file_no_error_css}} rounded-md shadow-sm" className="h-20 w-20 "/>
+           <img id="image1" src="{{URL::asset('/images/camera.png')}}" alt="image-require"  class="{{$file_no_error_css}} rounded-md shadow-sm" className="h-20 w-20 "/>
             <img id="image1" src="{{URL::asset('/images/camera_plus.png')}}" alt="image-require" class= "{{$file_error_css}} rounded-md shadow-sm " className="h-20 w-20 ">
           </label>
       </div>

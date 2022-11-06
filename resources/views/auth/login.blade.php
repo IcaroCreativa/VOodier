@@ -99,7 +99,7 @@
             <div class="col-span-6 sm:col-span-3">
               <div class='relative'>
               <label
-                for="Password"
+                for="password"
                 class="block text-sm font-medium text-gray-700"
               >
                 Password

@@ -6,9 +6,9 @@
   <x-app-layout >
   
 
-<div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6 ">
+<div class="grid grid-cols-1 md:grid md:grid-cols-3 md:grid-rows-2 gap-6">
 
-    
+
       @if($ads->count()==0 && session('status'))
       <div class="mx-auto mt-20 p-10 w-3/4 grid col-span-3  grid rows-span-2 rounded-lg shadow-lg bg-slate-100 justify-items-center"> 
         <img src="{{URL::asset('/images/Voodies_logo100.png')}}" alt="favicon ad">
