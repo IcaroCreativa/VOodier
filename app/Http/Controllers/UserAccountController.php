@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserAccountController extends Controller
 {
@@ -43,9 +46,11 @@ class UserAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show()
+   
+    {  
+       $user_data=Auth::user();
+       return view('user_account',['user_data'=>$user_data]);
     }
 
     /**
@@ -66,9 +71,9 @@ class UserAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request)
+    {   echo 'PAGE USER ACCOUNT ROUTE POST';
+        dd($request);
     }
 
     /**
@@ -79,24 +84,22 @@ class UserAccountController extends Controller
      */
 
     
-    /* ------ Suppression du USER et de ses posts (en cascade avec clé étrangères) ------*/7
-    public function destroy(Request $request, $id){
+    /* ------ Suppression du USER et de ses posts (en cascade avec clé étrangères) ------*/
+    public function destroy(Request $request){
         // https://codeanddeploy.com/blog/laravel/laravel-8-eloquent-query-find-and-findorfail-example
         // Utiliser findOrFail pour trouver l'id de l'user ou à défaut return abort(404) si non trouvé
-        
-        $request->validate([
-            'userid' => 'required',
-        ]);
+      
+        $id=$request->user_id;
+        $user = User::findOrFail($id);
+        $post=
+        $posts=Post::find(User::find($id));
+        dd($posts);
 
-        if($id == $request->userid)
-        {
-            $user = User::findOrFail($id);
-            $user->delete();
-            return redirect('index')->with('status', "You have been deleted. See you soon !");
-        }
-        else {
-            return redirect()->with('status', "User cannot be deleted. ID is not the same !");
-        }
+
+        $user->delete();
+        return redirect('index')->with('status', "You have been deleted. See you soon !");
+       
+      
         
         // Dans la view où tu auras le bouton pour delete le User. Mettre : 
         // <form action="{{route('delete_user",$user->id}}" method="post">

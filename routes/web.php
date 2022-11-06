@@ -77,7 +77,13 @@ Route::post('/register',[RegisteredUserController::class,'store']);
 
 Route::middleware('auth')->group(function () 
 {
+    // Route::post('/user_delete',function(){
+    //     return view('user_delete');
+    // })->name('user_delete');
+
+   Route::post('/user_delete',[UserAccountController::class,'destroy'])->name('user_delete');
     Route::post('/user_account',[UserAccountController::class,'show'])->name('user_account');
+    
     // Route::post('/user_account',[UserAccountController::class,'update'])->name('user_account_update');
 
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
@@ -107,16 +113,10 @@ Route::middleware('auth')->group(function ()
 
 });
 
+
 // Route pour filtrer les posts depuis le moteur de recherche
 // Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
 Route::put('index', [PostController::class,'search'])->name('search_post');
-
-
-});
-
-    // Route pour filtrer les posts depuis le moteur de recherche
-    // Route::get('index/{keywords}', [PostController::class,'search'])->name('search_post');
-    Route::put('index', [PostController::class,'search'])->name('search_post');
 
 // Route pour filtrer les posts depuis la barre de filtres
 Route::post('index', [PostController::class,'filtre'])->name('filter_post');

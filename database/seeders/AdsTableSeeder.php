@@ -23,7 +23,7 @@ class AdsTableSeeder extends Seeder
         $annonce1 ->location = "Caen";
         $annonce1 ->condition_id = 1;
         $annonce1 ->image1 = "images/chaise_01.jpg";
-        $annonce1 ->category_id ="0";
+        $annonce1 ->category_id ="House";
         $annonce1 ->user_id = "33";
         $annonce1 -> save();
 
