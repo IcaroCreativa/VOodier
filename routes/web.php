@@ -61,8 +61,7 @@ Route::post('contact',[ContactController::class,'store'])->name('contact');
 Route::post('/register',[RegisteredUserController::class,'store']);
 
 // Suppression du User et de ses posts (suppression en "cascade" par le biais de la clé)
-// Route::post('userdelete/{id}',[UserPostController::class,'deleteUser'])->('delete_user');
-
+// Route::post('user_account_update/{id}',[UserAccountController::class,'destroy'])->('delete_user');
 
 
 Route::middleware('auth')->group(function () 
